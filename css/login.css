@@ -1,0 +1,34 @@
+
+body {
+  background: #fefce0 !important;
+}
+
+
+.fondo {
+  background: #1A281E !important;
+  color: #fefce0 !important;
+}
+
+
+.fondo .form-control {
+  background-color: #fefce0;
+  color: #1A281E;
+  border: none;
+}
+
+.fondo .form-control:focus {
+  background-color: #ffffff;
+  color: #1A281E;
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+}
+
+
+.btn-outline-light {
+  border-color: #fefce0;
+  color: #fefce0;
+}
+
+.btn-outline-light:hover {
+  background-color: #fefce0;
+  color: #1A281E;
+}
