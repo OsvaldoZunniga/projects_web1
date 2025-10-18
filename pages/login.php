@@ -1,3 +1,7 @@
+<?php
+include 'connection.php';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,48 +13,45 @@
 </head>
 <body>
     <section class="vh-100">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div class="card fondo text-white" style="border-radius: 1rem;">
-          <div class="card-body p-5 text-center">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card fondo text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
 
-            <div class="mb-md-5 mt-md-4 pb-5">
+                <div class="mb-md-5 mt-md-4 pb-5">
 
-              <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-              <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                <h2 class="fw-bold mb-2 text-uppercase">Bienvenido</h2>
+                <p class="text-white-50 mb-5">Inicia sesión aquí!</p>
 
-              <div data-mdb-input-init class="form-outline form-white mb-4">
-                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeEmailX">Email</label>
-              </div>
+                <form action="validar_login.php" method="POST"> //cambiar nombre del archivo
 
-              <div data-mdb-input-init class="form-outline form-white mb-4">
-                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Password</label>
-              </div>             
+                    <div class="form-outline form-white mb-4">
+                    <input type="email" name="correo" id="typeEmailX" class="form-control form-control-lg" required/>
+                    <label class="form-label" for="typeEmailX">Email</label>
+                    </div>
 
-              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                    <div class="form-outline form-white mb-4">
+                    <input type="password" name="contrasena" id="typePasswordX" class="form-control form-control-lg" required/>
+                    <label class="form-label" for="typePasswordX">Contraseña</label>
+                    </div>             
 
-              <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
-              </div>
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Iniciar Sesión</button>
+                </form>
+
+                </div>
+                <div>
+                <p class="mb-0">¿No tienes una cuenta? 
+                    <a href="registroUsuario.php" class="text-white-50 fw-bold">Regístrate aquí</a>
+                </p>
+                </div>
 
             </div>
-
-            <div>
-              <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
-              </p>
             </div>
-
-          </div>
         </div>
-      </div>
+        </div>
     </div>
-  </div>
-</section>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
