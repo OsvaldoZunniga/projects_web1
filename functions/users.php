@@ -20,20 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $contrasena_hashed = password_hash($contrasena, PASSWORD_DEFAULT);
 
-    $foto_ruta = null;
-    if (isset($_FILES['fotografia']) && $_FILES['fotografia']['error'] === UPLOAD_ERR_OK) {
-        $nombreArchivo = $_FILES['fotografia']['name'];
-        $temporal = $_FILES['fotografia']['tmp_name'];
-        $nuevoNombre = time() . '_' . $nombreArchivo;
+    $foto_ruta = '';
+    if (!empty($_FILES['fotografia']['name'])) {
         $carpeta = '../assets/';
-        if (!file_exists($carpeta)) mkdir($carpeta, 0755, true);
+        if (!is_dir($carpeta)) mkdir($carpeta, 0755, true);
+
+        $nuevoNombre = time() . '_' . basename($_FILES['fotografia']['name']);
         $destino = $carpeta . $nuevoNombre;
-        if (move_uploaded_file($temporal, $destino)) {
-            $foto_ruta = $destino;
+
+        if (move_uploaded_file($_FILES['fotografia']['tmp_name'], $destino)) {
+            $foto_ruta = 'assets/' . $nuevoNombre; 
         } else {
-            die("Error al subir la imagen.");
+            echo "No se pudo subir la imagen.";
         }
     }
+
 
     $sql = "INSERT INTO usuarios 
         (nombre, apellido, cedula, nacimiento, correo, telefono, fotografia, contrasena, idRoles) 
