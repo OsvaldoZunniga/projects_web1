@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+require_once '../database/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +12,48 @@ include 'connection.php';
 <link href="../css/login.css" rel="stylesheet"/>
 </head>
 <body>
+
+    <?php if (isset($_GET['msg'])): ?>
+        <div class="container mt-3">
+            <?php if ($_GET['msg'] == 'pending'): ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                     Tu cuenta está pendiente de activación. Revisa tu correo para activarla.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php elseif ($_GET['msg'] == 'activated'): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Tu cuenta ha sido activada correctamente. Ahora puedes iniciar sesión.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php elseif ($_GET['msg'] == 'inactive'): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Tu cuenta está inactiva. Contacta al administrador.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php elseif ($_GET['msg'] == 'invalid'): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Enlace inválido o cuenta ya activada.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php elseif ($_GET['msg'] == 'user_not_found'): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Usuario no encontrado.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php elseif ($_GET['msg'] == 'wrong_pass'): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Contraseña incorrecta.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php elseif ($_GET['msg'] == 'pass_mismatch'): ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Las contraseñas no coinciden.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
     <section class="vh-100">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -24,7 +66,7 @@ include 'connection.php';
                 <h2 class="fw-bold mb-2 text-uppercase">Bienvenido</h2>
                 <p class="text-white-50 mb-5">Inicia sesión aquí!</p>
 
-                <form action="validar_login.php" method="POST"> //cambiar nombre del archivo
+                <form action="../functions/signIn.php" method="POST">
 
                     <div class="form-outline form-white mb-4">
                     <input type="email" name="correo" id="typeEmailX" class="form-control form-control-lg" required/>
@@ -42,7 +84,7 @@ include 'connection.php';
                 </div>
                 <div>
                 <p class="mb-0">¿No tienes una cuenta? 
-                    <a href="registroUsuario.php" class="text-white-50 fw-bold">Regístrate aquí</a>
+                    <a href="signUpUsers.php" class="text-white-50 fw-bold">Regístrate aquí</a>
                 </p>
                 </div>
 
@@ -55,4 +97,5 @@ include 'connection.php';
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
