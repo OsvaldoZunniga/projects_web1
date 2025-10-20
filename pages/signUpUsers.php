@@ -28,7 +28,7 @@ require_once '../database/connection.php';
                 <button class="nav-link active" id="chofer-tab" data-bs-toggle="tab" data-bs-target="#chofer" type="button" role="tab">Chofer</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button" role="tab">Pasajero</button>
+                <button class="nav-link" id="pasajero-tab" data-bs-toggle="tab" data-bs-target="#pasajero" type="button" role="tab">Pasajero</button>
               </li>
             </ul>
 
