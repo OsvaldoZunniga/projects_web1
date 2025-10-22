@@ -39,7 +39,7 @@ CREATE TABLE ride(
     llegada VARCHAR(150) NOT NULL,
     hora TIME NOT NULL,
     fecha DATE NOT NULL,
-    espacios INT NOT NULL, 
+    espacios INT NOT NULL,
     costo_espacio DECIMAL(10,2) NOT NULL,
     CONSTRAINT fk_ride_vehiculos FOREIGN KEY (idVehiculo) REFERENCES vehiculos(idVehiculo)
 );
