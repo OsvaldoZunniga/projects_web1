@@ -18,11 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($user) {
         if ($user['estado'] == 'Pendiente') {
-            header("Location: ../pages/login.php?msg=pending");
+            header("Location: ../index.php?msg=pending");
             exit();
         }
         if ($user['estado'] == 'Inactivo') {
-            header("Location: ../pages/login.php?msg=inactive");
+            header("Location: ../index.php?msg=inactive");
             exit();
         }
 
@@ -31,14 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['nombre'] = $user['nombre'];
             $_SESSION['correo'] = $user['correo'];
             $_SESSION['idRoles'] = $user['idRoles'];
-
+            header("Location: ../pages/dashboard.php");
             exit();
         } else {
-            header("Location: ../pages/login.php?msg=wrong_pass");  
+            header("Location: ../index.php?msg=wrong_pass");  
             exit();         
         }
     } else {
-        header("Location: ../pages/login.php?msg=user_not_found");
+        header("Location: ../index.php?msg=user_not_found");
         exit();
     }
 

@@ -74,10 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                            <a href='$activationLink'>Activar cuenta</a><br><br>Gracias!";
 
             $mail->send();
-           header("Location: ../pages/login.php?msg=pending");
+           header("Location: ../index.php?msg=pending");
            exit();
         } catch (Exception $e) {
-            header("Location: ../pages/login.php?msg=invalid");
+            header("Location: ../index.php??msg=invalid");
             exit();
         }
     } else {
@@ -86,5 +86,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $stmt->close();
     $conn->close();
+}
+
+
+function getProfileIcon($email) {
+    $conn = getConnection_BD();
+    $sql = "SELECT fotografia FROM usuarios WHERE correo = '$email' LIMIT 1";
+    $result = $conn->query($sql);
+    $user = $result ? $result->fetch_assoc() : null;
+    if ($result) $result->free();
+    $conn->close();
+    
+
+    return $user ? $user['fotografia'] : '/assets/default-profile.png';
 }
 ?>

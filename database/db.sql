@@ -7,13 +7,14 @@ CREATE TABLE usuarios(
     idUsuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
-    cedula VARCHAR(20) NOT NULL,
+    cedula VARCHAR(20) UNIQUE NOT NULL,
     nacimiento DATE NOT NULL,
-    correo VARCHAR(50) NOT NULL,
+    correo VARCHAR(50) UNIQUE NOT NULL,
     telefono VARCHAR(20) NOT NULL,
     fotografia VARCHAR(300),
     estado VARCHAR(30) DEFAULT 'Pendiente',
     contrasena VARCHAR(300) NOT NULL,
+    token VARCHAR(255),
     idRoles INT NOT NULL, 
     CONSTRAINT fk_usuarios_roles FOREIGN KEY (idRoles) REFERENCES roles(idRoles)
 );
