@@ -1,5 +1,5 @@
 <?php
-require_once '../database/connection.php';
+require_once 'database/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,8 +8,8 @@ require_once '../database/connection.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login SubiteyReza</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<link href="../css/login.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="/css/login.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -66,7 +66,7 @@ require_once '../database/connection.php';
                 <h2 class="fw-bold mb-2 text-uppercase">Bienvenido</h2>
                 <p class="text-white-50 mb-5">Inicia sesión aquí!</p>
 
-                <form action="../functions/signIn.php" method="POST">
+                <form action="/functions/signIn.php" method="POST">
 
                     <div class="form-outline form-white mb-4">
                     <input type="email" name="correo" id="typeEmailX" class="form-control form-control-lg" required/>
@@ -84,7 +84,7 @@ require_once '../database/connection.php';
                 </div>
                 <div>
                 <p class="mb-0">¿No tienes una cuenta? 
-                    <a href="signUpUsers.php" class="text-white-50 fw-bold">Regístrate aquí</a>
+                    <a href="/pages/signUpUsers.php" class="text-white-50 fw-bold">Regístrate aquí</a>
                 </p>
                 </div>
 

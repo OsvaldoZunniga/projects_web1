@@ -156,7 +156,7 @@ require_once '../database/connection.php';
             </div>
 
             <p class="text-center mt-3">¿Ya tienes una cuenta?
-              <a href="login.php" class="text-white-50 fw-bold">Iniciar sesión</a>
+              <a href="../index.php" class="text-white-50 fw-bold">Iniciar sesión</a>
             </p>
 
           </div>

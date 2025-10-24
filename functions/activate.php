@@ -20,11 +20,11 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
         $stmtUpdate->execute();
         $stmtUpdate->close();
 
-        header("Location: ../pages/login.php?msg=activated");
+        header("Location: ../index.php?msg=activated");
         exit();
 
     } else {
-        header("Location: ../pages/login.php?msg=invalid");
+        header("Location: ../index.php?msg=invalid");
         exit();
     }
 
