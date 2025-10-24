@@ -100,4 +100,7 @@ function getProfileIcon($email) {
 
     return $user ? $user['fotografia'] : '/assets/default-profile.png';
 }
+
+
+
 ?>
