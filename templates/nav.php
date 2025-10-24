@@ -1,8 +1,12 @@
 <?php
-    require '../functions/users.php';
+require '../functions/users.php';
+
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
-    $email = $_SESSION['correo'] ?? '';
+}
+$email = $_SESSION['correo'] ?? '';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
