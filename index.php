@@ -45,9 +45,14 @@ require_once 'database/connection.php';
                     Contraseña incorrecta.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-            <?php elseif ($_GET['msg'] == 'pass_mismatch'): ?>
+            <?php elseif ($_GET['msg'] == 'passwrd_!match'): ?>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     Las contraseñas no coinciden.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php elseif ($_GET['msg'] == 'img_upload_error'): ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Error al subir la imagen. Por favor, intenta de nuevo.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             <?php endif; ?>

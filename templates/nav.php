@@ -29,7 +29,9 @@ $email = $_SESSION['correo'] ?? '';
                 <button class="btn btn-outline-success" type="submit">🔍</button>
             </form>
             <div class="profile d-flex align-items-center position-absolute end-0 top-50 translate-middle-y me-3">
-                <img src="../<?php echo htmlspecialchars(getProfileIcon($email), ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="rounded-circle" height="30" onclick="">
+                <a href="../pages/profile_settings.php">
+                    <img src="../<?php echo htmlspecialchars(getProfileIcon($email), ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="rounded-circle" height="30" style="cursor: pointer;">
+                </a>
             </div>
         </div>
     </nav>
