@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $correo = trim($_POST['correo']);
     $contrasena = trim($_POST['contrasena']);
 
-    // Buscarpor correo porque aun no se sabe si es por username
     $sql = "SELECT * FROM usuarios WHERE correo=? LIMIT 1";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $correo);
