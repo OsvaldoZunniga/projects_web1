@@ -16,19 +16,16 @@
     
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand">
                 <img src="../assets/logo.jpg" alt="Logo" height="30">
             </a>
             
-            <form class="d-flex mx-auto" action="">
-                <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Buscar Ride" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            <div class="profile ms-auto d-flex align-items-center"> 
-                <img src="../<?php echo htmlspecialchars(getProfileIcon($email), ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="rounded-circle" height="30">
+            <form class="d-flex mx-auto" style="width: 40%;">
+                <input class="form-control me-2" type="search" placeholder="Buscar Ride">
+                <button class="btn btn-outline-success" type="submit">🔍</button>
+            </form>
+            <div class="profile d-flex align-items-center position-absolute end-0 top-50 translate-middle-y me-3">
+                <img src="../<?php echo htmlspecialchars(getProfileIcon($email), ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="rounded-circle" height="30" onclick="">
             </div>
         </div>
     </nav>

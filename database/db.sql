@@ -49,6 +49,7 @@ CREATE TABLE reserva(
     idReserva INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     idRide INT NOT NULL,
     idUsuario INT NOT NULL,
+    estado varchar(20) not null DEFAULT 'Pendiente',
     CONSTRAINT fk_reserva_usuarios FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario),
     CONSTRAINT fk_reserva_ride FOREIGN KEY (idRide) REFERENCES ride(idRide)
 );

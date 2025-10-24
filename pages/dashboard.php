@@ -7,8 +7,9 @@
 </head>
 <body>
     <?php include '../templates/nav.php'; ?>
-    <div class="container mt-4">
-        <h1>Welcome to the Dashboard</h1>
-        <p>This is your dashboard where you can manage your rides and profile.</p>
+    <div class="container mt-4 text-center">
+        <h1>Bienvenido a SubiteYReza Inc</h1>
+        
+    </div>
 </body>
 </html>
