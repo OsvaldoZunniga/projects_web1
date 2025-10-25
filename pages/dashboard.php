@@ -29,11 +29,9 @@ $idRol = $_SESSION['idRoles'];
                 include '../templates/dashB_Admin.php';
                 break;
             case 2: 
-                include '../templates/nav.php';
                 include '../templates/dashB_Pasajero.php';
                 break;
             case 1: 
-                include '../templates/nav.php';
                 include '../templates/dashB_Chofer.php';
                 break;
             default:

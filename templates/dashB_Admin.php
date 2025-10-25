@@ -99,8 +99,6 @@ $usuarios = obtenerUsuariosActivos($conn);
           </div>
         </div>
       </div>
-
-      <br>
       
       <div class="col-12 col-md-11 col-lg-10 col-xl-9">
         <div class="card p-4" style="background-color: #fefce0; border-radius:1rem;">

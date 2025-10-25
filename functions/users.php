@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $token = '';
 
     if ($contrasena !== $contrasena_confirm) {
-        header("Location: ../index.php?msg=passwrd_!match");
+        header("Location: ../pages/signUpUsers.php?msg=pass_mismatch");
         exit;
     }
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (move_uploaded_file($_FILES['fotografia']['tmp_name'], $destino)) {
             $foto_ruta = 'assets/' . $nuevoNombre; 
         } else {
-            header("Location: ../index.php?msg=img_upload_error");
+            echo "No se pudo subir la imagen.";
         }
     }
 
