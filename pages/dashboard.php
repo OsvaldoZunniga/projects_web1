@@ -29,10 +29,10 @@ $idRol = $_SESSION['idRoles'];
                 include '../templates/dashB_Admin.php';
                 break;
             case 2: 
-                include '../templates/dashB_Pasajero.php';
+                include '../templates/dashb_Pasajero.php';
                 break;
             case 1: 
-                include '../templates/dashB_Chofer.php';
+                include '../templates/dashb_Chofer.php';
                 break;
             default:
                 echo '<div class="alert alert-danger"> Rol no reconocido.</div>';
