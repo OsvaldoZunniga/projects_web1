@@ -12,7 +12,7 @@ require_once '../database/connection.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chofer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/login.css" rel="stylesheet"/>
 </head>
@@ -24,9 +24,9 @@ require_once '../database/connection.php';
       <div class="col-md-5">
         <div class="card shadow border-0 h-100 text-center" style="border-radius: 1rem;">
           <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
-            <h3 class="fw-bold mb-4" style="color: #1A281E;">Gestión de Vehículos</h3>
-            <p class="mb-4 text-muted">Administra tu información de vehículos registrados.</p>
-            <a href="vehicles.php" class="btn btn-outline-dark btn-lg px-4">Ir a Vehículos</a>
+            <h3 class="fw-bold mb-4" style="color: #1A281E;">Registro de Vehículos</h3>
+            <p class="mb-4 text-muted">Registra la información de tus vehículos aquí.</p>
+            <a href="../pages/addVehicle.php" class="btn btn-outline-dark btn-lg px-4">Ir al registro</a>
           </div>
         </div>
       </div>
