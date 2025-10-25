@@ -69,7 +69,7 @@ $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
                         'Placa' => $vehiculo['placa'],
                         'Modelo' => $vehiculo['modelo']
                       ],
-                      'link' => '../pages/vehicle_settings.php?id=' . $vehiculo['idVehiculo']
+                      'link' => '../pages/vehicles_settings.php?id=' . $vehiculo['idVehiculo']
                     ];
                     include 'card.php'; 
                   ?>
@@ -89,6 +89,7 @@ $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Rides Registrados</h3>
             <div class="row g-4" id="rides-container">
               <p class="text-muted text-center">No hay rides registrados aún.</p>
+               <!-- aqui hace lo mismo que en el de arriba pro con los datos de los rides -->
             </div>
           </div>
         </div>
