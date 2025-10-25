@@ -4,7 +4,13 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['idRoles'] != 1) {
     header("Location: ../index.php?msg=invalid");
     exit();
 }
+
 require_once '../database/connection.php';
+require_once '../database/queries.php';
+
+$conn = getConnection_BD();
+$idUsuario = $_SESSION['idUsuario'];
+$vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
 ?>
 
 <!DOCTYPE html>
@@ -19,9 +25,9 @@ require_once '../database/connection.php';
 <body>
 <?php include '../templates/nav.php'; ?>
   <div class="container my-5">
-    <div class="row justify-content-center g-4">
+    <div class="row g-4">
 
-      <div class="col-md-5">
+      <div class="col-md-6">
         <div class="card shadow border-0 h-100 text-center" style="border-radius: 1rem;">
           <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Registro de Vehículos</h3>
@@ -31,17 +37,64 @@ require_once '../database/connection.php';
         </div>
       </div>
 
-      <div class="col-md-5">
+      <div class="col-md-6">
         <div class="card shadow border-0 h-100 text-center" style="border-radius: 1rem;">
           <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Gestión de Rides</h3>
             <p class="mb-4 text-muted">Crea, actualiza o consulta tus viajes disponibles.</p>
-            <a href="rides.php" class="btn btn-outline-dark btn-lg px-4">Ir a Rides</a>
+            <a href="../pages/addRides.php" class="btn btn-outline-dark btn-lg px-4">Ir a Rides</a>
           </div>
         </div>
       </div>
 
     </div>
+
+    <!-- aqui van vehículos -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card shadow border-0" style="border-radius: 1rem; min-height: 400px;">
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-4" style="color: #1A281E;">Mis Vehículos</h3>
+            <div class="row g-4" id="vehiculos-container">
+              <?php if (empty($vehiculos)): ?> 
+                <p class="text-muted text-center">No hay vehículos registrados aún.</p>
+              <?php else: ?>
+                <?php foreach($vehiculos as $vehiculo): ?>
+                  <?php 
+                    $item = [
+                      'id' => $vehiculo['idVehiculo'],
+                      'imagen' => $vehiculo['foto'],
+                      'titulo' => $vehiculo['marca'],
+                      'campos' => [
+                        'Placa' => $vehiculo['placa'],
+                        'Modelo' => $vehiculo['modelo']
+                      ],
+                      'link' => '../pages/vehicle_settings.php?id=' . $vehiculo['idVehiculo']
+                    ];
+                    include 'card.php'; 
+                  ?>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- aqui van rides -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card shadow border-0" style="border-radius: 1rem; min-height: 400px;">
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-4" style="color: #1A281E;">Rides Registrados</h3>
+            <div class="row g-4" id="rides-container">
+              <p class="text-muted text-center">No hay rides registrados aún.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
