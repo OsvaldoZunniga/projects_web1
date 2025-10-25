@@ -32,5 +32,16 @@ function obtenerVehiculosPorUsuario($conn, $idUsuario) {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
+function obtenerVehiculoPorId($conn, $idVehiculo) {
+    $sql = "SELECT idVehiculo, idUsuario, placa, color, marca, modelo, anio, capacidad, foto
+            FROM vehiculos
+            WHERE idVehiculo = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idVehiculo);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
 
 ?>
