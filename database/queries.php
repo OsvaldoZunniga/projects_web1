@@ -20,5 +20,17 @@ function desactivarUsuario($conn, $idUsuario) {
     return $stmt->execute();
 }
 
+function obtenerVehiculosPorUsuario($conn, $idUsuario) {
+    $sql = "SELECT idVehiculo, placa, color, marca, modelo, anio, capacidad, foto
+            FROM vehiculos
+            WHERE idUsuario = ?
+            ORDER BY idVehiculo DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
 
 ?>
