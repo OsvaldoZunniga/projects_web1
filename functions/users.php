@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $mail->isHTML(true);
             $mail->Subject = 'Activar cuenta';
             
-            $activationLink = "http://localhost/projects_web1/functions/activate.php?email=$correo&token=$token";
+            $activationLink = "http://proyecto01.com/functions/activate.php?email=$correo&token=$token";
             $mail->Body = "Hola $nombre,<br><br>Para activar tu cuenta, haz clic en el siguiente enlace:<br>
                            <a href='$activationLink'>Activar cuenta</a><br><br>Gracias!";
 
