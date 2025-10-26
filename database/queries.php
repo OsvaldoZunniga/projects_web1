@@ -43,5 +43,30 @@ function obtenerVehiculoPorId($conn, $idVehiculo) {
     return $result->fetch_assoc();
 }
 
-
+function obtenerRidesPorUsuario($conn, $idUsuario) {
+    $sql = "SELECT 
+                r.idRide, 
+                r.idVehiculo, 
+                r.nombre, 
+                r.salida, 
+                r.llegada, 
+                r.hora, 
+                r.fecha, 
+                r.espacios, 
+                r.costo_espacio,
+                v.marca,
+                v.modelo,
+                v.color
+            FROM ride r
+            INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
+            WHERE u.idUsuario = ?
+            ORDER BY r.idRide DESC";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 ?>

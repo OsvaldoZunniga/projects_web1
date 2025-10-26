@@ -11,6 +11,7 @@ require_once '../database/queries.php';
 $conn = getConnection_BD();
 $idUsuario = $_SESSION['idUsuario'];
 $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
+$rides = obtenerRidesPorUsuario($conn, $idUsuario);
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +43,7 @@ $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
           <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Gestión de Rides</h3>
             <p class="mb-4 text-muted">Crea, actualiza o consulta tus viajes disponibles.</p>
-            <a href="../pages/rides_settings.php" class="btn btn-outline-dark btn-lg px-4">Ir a Rides</a>
+            <a href="../pages/addRide.php" class="btn btn-outline-dark btn-lg px-4">Ir a Rides</a>
           </div>
         </div>
       </div>
@@ -88,8 +89,16 @@ $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
           <div class="card-body p-4">
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Rides Registrados</h3>
             <div class="row g-4" id="rides-container">
-              <p class="text-muted text-center">No hay rides registrados aún.</p>
-               <!-- aqui hace lo mismo que en el de arriba pro con los datos de los rides -->
+
+              <?php if (empty($rides)): ?> 
+                <p class="text-muted text-center">No hay rides registrados aún.</p>
+              <?php else: ?>
+                <?php foreach($rides as $ride): ?>
+                  <?php 
+                    include 'cardRide.php'; 
+                  ?>
+                <?php endforeach; ?>
+              <?php endif; ?>
             </div>
           </div>
         </div>
