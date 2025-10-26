@@ -42,7 +42,7 @@ $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
           <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Gestión de Rides</h3>
             <p class="mb-4 text-muted">Crea, actualiza o consulta tus viajes disponibles.</p>
-            <a href="../pages/addRides.php" class="btn btn-outline-dark btn-lg px-4">Ir a Rides</a>
+            <a href="../pages/rides_settings.php" class="btn btn-outline-dark btn-lg px-4">Ir a Rides</a>
           </div>
         </div>
       </div>

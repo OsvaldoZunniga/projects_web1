@@ -66,6 +66,10 @@ require_once '../database/connection.php';
 
                     <h2 class="fw-bold mb-4 text-center">Actualizacion de datos</h2>
 
+                    <div class="mb-3">
+                        <a href="../pages/dashboard.php" class="btn btn-outline-light">← Volver al Dashboard</a>
+                    </div>
+
                     <ul class="nav nav-tabs mb-4 justify-content-center" id="registroTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="tab" data-bs-toggle="tab" type="button" role="tab">Perfil</button>
@@ -126,7 +130,7 @@ require_once '../database/connection.php';
                             </div>
                             </form>
                             <p class="text-center mt-3">
-                                <a href="/pages/dashboard.php" class="text-white-50 fw-bold">Regresar al dashboard</a>
+                                <a href="../index.php" class="text-white-50 fw-bold">Cerrar Sesion</a>
                             </p>
                         </div>
 
