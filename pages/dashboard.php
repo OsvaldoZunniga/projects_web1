@@ -19,6 +19,22 @@ $idRol = $_SESSION['idRoles'];
     <link href="../css/login.css" rel="stylesheet"/>
 </head>
 <body>
+    
+    <?php if (isset($_GET['msg'])): ?>
+        <div class="container mt-3">
+            <?php if ($_GET['msg'] == 'ride_error'): ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Ride no registrado. Por favor, intenta de nuevo.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php elseif ($_GET['msg'] == 'ride_success'): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Ride registrado exitosamente.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
 
 
 
@@ -29,7 +45,7 @@ $idRol = $_SESSION['idRoles'];
                 include '../templates/dashB_Admin.php';
                 break;
             case 2: 
-                include '../templates/dashb_Pasajero.php';
+                //include '../templates/dashb_Pasajero.php';
                 break;
             case 1: 
                 include '../templates/dashb_Chofer.php';
