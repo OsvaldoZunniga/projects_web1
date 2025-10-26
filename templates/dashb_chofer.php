@@ -92,6 +92,7 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
 
               <?php if (empty($rides)): ?> 
                 <p class="text-muted text-center">No hay rides registrados aún.</p>
+            
               <?php else: ?>
                 <?php foreach($rides as $ride): ?>
                   <?php 
