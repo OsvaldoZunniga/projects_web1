@@ -11,6 +11,7 @@ require_once '../database/queries.php';
 $conn = getConnection_BD();
 $idUsuario = $_SESSION['idUsuario'];
 $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
+$rides = obtenerRidesPorUsuario($conn, $idUsuario);
 ?>
 
 <!DOCTYPE html>
@@ -88,8 +89,29 @@ $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
           <div class="card-body p-4">
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Rides Registrados</h3>
             <div class="row g-4" id="rides-container">
-              <p class="text-muted text-center">No hay rides registrados aún.</p>
-               <!-- aqui hace lo mismo que en el de arriba pro con los datos de los rides -->
+              <?php
+                if (empty($rides)): ?>
+                  <p class="text-muted text-center">No hay rides registrados aún.</p>
+                <?php else: ?>
+                  <?php foreach ($rides as $ride):
+                    $item = [
+                      'idRide' => $ride['idRide'],
+                      'nombre' => $ride['nombre'],
+                      'marca' => $ride['marca'],
+                      'modelo' => $ride['modelo'],
+                      'color' => $ride['color'],
+                      'salida' => $ride['salida'],
+                      'llegada' => $ride['llegada'],
+                      'fecha' => $ride['fecha'],
+                      'hora' => $ride['hora'],
+                      'espacios' => $ride['espacios'],
+                      'costo_espacio' => $ride['costo_espacio']
+                    ];
+                    include 'cardRide.php';
+                  endforeach; ?>
+                <?php endif; ?>
+
+               
             </div>
           </div>
         </div>
