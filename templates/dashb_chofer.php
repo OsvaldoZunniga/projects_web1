@@ -50,7 +50,6 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
 
     </div>
 
-    <!-- aqui van vehículos -->
     <div class="row mt-5">
       <div class="col-12">
         <div class="card shadow border-0" style="border-radius: 1rem; min-height: 400px;">
@@ -61,7 +60,7 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
                 <p class="text-muted text-center">No hay vehículos registrados aún.</p>
               <?php else: ?>
                 <?php foreach($vehiculos as $vehiculo): ?>
-                  <?php 
+                  <?php
                     $item = [
                       'id' => $vehiculo['idVehiculo'],
                       'imagen' => $vehiculo['foto'],
