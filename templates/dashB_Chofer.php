@@ -43,7 +43,7 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
           <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Gestión de Rides</h3>
             <p class="mb-4 text-muted">Crea, actualiza o consulta tus viajes disponibles.</p>
-            <a href="../pages/addRide.php" class="btn btn-outline-dark btn-lg px-4">Ir a Rides</a>
+            <a href="../pages/addRides.php" class="btn btn-outline-dark btn-lg px-4">Ir a Rides</a>
           </div>
         </div>
       </div>
@@ -89,17 +89,29 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
           <div class="card-body p-4">
             <h3 class="fw-bold mb-4" style="color: #1A281E;">Rides Registrados</h3>
             <div class="row g-4" id="rides-container">
+              <?php
+                if (empty($rides)): ?>
+                  <p class="text-muted text-center">No hay rides registrados aún.</p>
+                <?php else: ?>
+                  <?php foreach ($rides as $ride):
+                    $item = [
+                      'idRide' => $ride['idRide'],
+                      'nombre' => $ride['nombre'],
+                      'marca' => $ride['marca'],
+                      'modelo' => $ride['modelo'],
+                      'color' => $ride['color'],
+                      'salida' => $ride['salida'],
+                      'llegada' => $ride['llegada'],
+                      'fecha' => $ride['fecha'],
+                      'hora' => $ride['hora'],
+                      'espacios' => $ride['espacios'],
+                      'costo_espacio' => $ride['costo_espacio']
+                    ];
+                    include 'cardRide.php';
+                  endforeach; ?>
+                <?php endif; ?>
 
-              <?php if (empty($rides)): ?> 
-                <p class="text-muted text-center">No hay rides registrados aún.</p>
-            
-              <?php else: ?>
-                <?php foreach($rides as $ride): ?>
-                  <?php 
-                    include 'cardRide.php'; 
-                  ?>
-                <?php endforeach; ?>
-              <?php endif; ?>
+               
             </div>
           </div>
         </div>
