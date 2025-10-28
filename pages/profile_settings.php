@@ -40,7 +40,22 @@ require_once '../database/connection.php';
 
         </div>
     <?php endif; ?>
-
+    
+    <?php
+    
+        // llenar el formulario con los datos actuales del usuario
+        session_start();
+        $conn = getConnection_BD();
+        $user_id = $_SESSION['idUsuario'];
+        $query = "SELECT nombre, apellido, nacimiento, correo, telefono FROM usuarios WHERE idUsuario = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        
+    
+    ?>
 
     <section class="vh-100">
         <div class="container py-5 h-100">
@@ -50,6 +65,10 @@ require_once '../database/connection.php';
                 <div class="card-body p-5">
 
                     <h2 class="fw-bold mb-4 text-center">Actualizacion de datos</h2>
+
+                    <div class="mb-3">
+                        <a href="../pages/dashboard.php" class="btn btn-outline-light">← Volver al Dashboard</a>
+                    </div>
 
                     <ul class="nav nav-tabs mb-4 justify-content-center" id="registroTabs" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -64,29 +83,29 @@ require_once '../database/connection.php';
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                 <label class="form-label">Nombre</label>
-                                <input type="text" name="nombre" class="form-control form-control-lg" required>
+                                <input type="text" name="nombre" class="form-control form-control-lg" required value='<?php echo $user['nombre']; ?>'>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                 <label class="form-label">Apellido</label>
-                                <input type="text" name="apellido" class="form-control form-control-lg" required>
+                                <input type="text" name="apellido" class="form-control form-control-lg" required value='<?php echo $user['apellido']; ?>'>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                 <label class="form-label">Fecha de Nacimiento</label>
-                                <input type="date" name="nacimiento" class="form-control form-control-lg" required>
+                                <input type="date" name="nacimiento" class="form-control form-control-lg" required value='<?php echo $user['nacimiento']; ?>'>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                 <label class="form-label">Correo Electrónico</label>
-                                <input type="email" name="correo" class="form-control form-control-lg" required>
+                                <input type="email" name="correo" class="form-control form-control-lg" required value='<?php echo $user['correo']; ?>'>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                 <label class="form-label">Teléfono</label>
-                                <input type="text" name="telefono" class="form-control form-control-lg" required>
+                                <input type="text" name="telefono" class="form-control form-control-lg" required value='<?php echo $user['telefono']; ?>'>
                                 </div>
                             </div>
 
@@ -110,6 +129,9 @@ require_once '../database/connection.php';
                                 <button type="submit" class="btn btn-outline-light btn-lg">Actualizar info</button>
                             </div>
                             </form>
+                            <p class="text-center mt-3">
+                                <a href="../index.php" class="text-white-50 fw-bold">Cerrar Sesion</a>
+                            </p>
                         </div>
 
                     </div>
