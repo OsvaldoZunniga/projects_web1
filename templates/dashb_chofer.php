@@ -109,16 +109,28 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
                     ];
                     include 'cardRide.php';
                   endforeach; ?>
-                <?php endif; ?>
-
-               
+                <?php endif; ?>            
             </div>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
+    <!-- aqui van a ir las reservas -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card shadow border-0" style="border-radius: 1rem; min-height: 400px;">
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-4" style="color: #1A281E;">Mis Reservas</h3>
+            <div class="row g-4" id="reservas-container">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
