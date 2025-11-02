@@ -69,4 +69,137 @@ function obtenerRidesPorUsuario($conn, $idUsuario) {
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
+function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
+    $sql = "SELECT 
+                r.idRide, 
+                r.nombre, 
+                r.salida, 
+                r.llegada, 
+                r.hora, 
+                r.fecha, 
+                r.espacios, 
+                r.costo_espacio,
+                v.marca,
+                v.modelo,
+                v.anio,
+                v.color
+            FROM ride r
+            INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            WHERE r.fecha >= CURDATE()";
+    
+    $params = [];
+    $types = "";
+    
+    // Filtros de búsqueda
+    if (!empty($filtros['salida'])) {
+        $sql .= " AND r.salida LIKE ?";
+        $params[] = "%" . $filtros['salida'] . "%";
+        $types .= "s";
+    }
+    
+    if (!empty($filtros['llegada'])) {
+        $sql .= " AND r.llegada LIKE ?";
+        $params[] = "%" . $filtros['llegada'] . "%";
+        $types .= "s";
+    }
+    
+    // Ordenamiento
+    switch ($orden) {
+        case 'fecha_desc':
+            $sql .= " ORDER BY r.fecha DESC, r.hora DESC";
+            break;
+        case 'salida_asc':
+            $sql .= " ORDER BY r.salida ASC";
+            break;
+        case 'salida_desc':
+            $sql .= " ORDER BY r.salida DESC";
+            break;
+        case 'llegada_asc':
+            $sql .= " ORDER BY r.llegada ASC";
+            break;
+        case 'llegada_desc':
+            $sql .= " ORDER BY r.llegada DESC";
+            break;
+        default: // fecha_asc
+            $sql .= " ORDER BY r.fecha ASC, r.hora ASC";
+            break;
+    }
+    
+    $stmt = $conn->prepare($sql);
+    
+    if (!empty($params)) {
+        $stmt->bind_param($types, ...$params);
+    }
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function verificarEspaciosDisponibles($conn, $idRide, $cantidadPersonas) {
+    $sql = "SELECT 
+                r.espacios,
+                COALESCE(SUM(CASE WHEN res.estado != 'Cancelada' THEN 1 ELSE 0 END), 0) as espaciosReservados
+            FROM ride r
+            LEFT JOIN reserva res ON r.idRide = res.idRide
+            WHERE r.idRide = ?
+            GROUP BY r.idRide, r.espacios";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idRide);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $ride = $result->fetch_assoc();
+    
+    if (!$ride) {
+        return false;
+    }
+    
+    $espaciosDisponibles = $ride['espacios'] - $ride['espaciosReservados'];
+    return $espaciosDisponibles >= $cantidadPersonas;
+}
+
+function verificarSolicitudDuplicada($conn, $idUsuario, $idRide) {
+    $sql = "SELECT idReserva FROM reserva WHERE idUsuario = ? AND idRide = ? AND estado != 'Cancelada'";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $idUsuario, $idRide);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->num_rows > 0;
+}
+
+function crearSolicitudReserva($conn, $idUsuario, $idRide) {
+    $sql = "INSERT INTO reserva (idRide, idUsuario, estado) VALUES (?, ?, 'Pendiente')";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $idRide, $idUsuario);
+    return $stmt->execute();
+}
+
+function obtenerSolicitudesPorUsuario($conn, $idUsuario) {
+    $sql = "SELECT 
+                res.idReserva,
+                res.estado,
+                r.nombre,
+                r.salida,
+                r.llegada,
+                r.fecha,
+                r.hora,
+                r.costo_espacio,
+                r.espacios,
+                v.marca,
+                v.modelo,
+                v.color
+            FROM reserva res
+            INNER JOIN ride r ON res.idRide = r.idRide
+            INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            WHERE res.idUsuario = ?
+            ORDER BY res.idReserva DESC";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 ?>
