@@ -13,11 +13,6 @@ $email = $_SESSION['correo'] ?? '';
       <span class="fw-bold">RideConnect</span>
     </a>
 
-    <form class="d-flex mx-auto" style="width: 40%;">
-      <input class="form-control me-2" type="search" placeholder="Buscar Ride" aria-label="Buscar Ride">
-      <button class="btn btn-outline-light" type="submit">🔍</button>
-    </form>
-
     <div class="profile d-flex align-items-center">
       <a href="../pages/profile_settings.php">
         <img src="../<?php echo htmlspecialchars(getProfileIcon($email), ENT_QUOTES, 'UTF-8'); ?>" 
