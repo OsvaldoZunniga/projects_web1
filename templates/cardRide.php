@@ -13,7 +13,7 @@
            style="border-radius: 0.8rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1) !important; transition: transform 0.2s, box-shadow 0.2s;">
   <?php endif; ?>
       
-      <div class="card-header text-white text-center" style="background-color: #1A281E; border-radius: 0.8rem 0.8rem 0 0;">
+      <div class="card-header text-white text-center" style="background-color: #2ECC71; border-radius: 0.8rem 0.8rem 0 0;">
         <h5 class="mb-0 fw-bold"><?= htmlspecialchars($ride['nombre']) ?></h5>
       </div>
       

@@ -1,8 +1,12 @@
 
 html, body {
-  background: #fefce0 !important;
+  background: radial-gradient(circle at center, #fefce0 0%,
+   100%) !important;
   margin: 0 !important;
   padding: 0 !important;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif !important;
+  color: #13281F;
+  height: 100%;
 }
 
 /*navbar  */
@@ -27,32 +31,76 @@ body {
   padding-top: 100px !important;
 }
 
-
-.fondo {
-  background: #1A281E !important;
+.card.fondo {
+  background-color: #13281F !important; /* verde oscuro exacto */
   color: #fefce0 !important;
-}
-
-
-.fondo .form-control {
-  background-color: #fefce0;
-  color: #1A281E;
+  border-radius: 20px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
   border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.fondo .form-control:focus {
-  background-color: #ffffff;
-  color: #1A281E;
-  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+.card.fondo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
 }
 
+.card.fondo h2 {
+  color: #eaf7d2;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.card.fondo p {
+  color: #d6e5c0;
+}
+
+.form-control {
+  background-color: #fffde8 !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 14px 18px !important;
+  color: #13281F !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: #ffffff !important;
+  color:#13281F !important;
+  box-shadow: 0 0 10px rgba(90, 200, 120, 0.3) !important;
+}
 
 .btn-outline-light {
-  border-color: #fefce0;
-  color: #fefce0;
+  background-color: #2ECC71 !important; 
+  color: #fffde8 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 12px 0 !important;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.3px;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
 .btn-outline-light:hover {
-  background-color: #fefce0;
-  color: #1A281E;
+  background-color:  #2ECC71 !important;
+  box-shadow: 0 4px 12px rgba(25, 210, 92, 0.4);
+  color: #fefce0 !important;
 }
+
+.text-white-50 {
+  color: #d6e5c0 !important;
+  font-size: 0.9rem;
+}
+
+.text-white-50.fw-bold {
+  color: #7ce26d !important;
+  font-weight: 600 !important;
+}
+
+.text-white-50.fw-bold:hover {
+  color: #a8f0a2 !important;
+}
+

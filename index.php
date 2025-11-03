@@ -8,12 +8,13 @@ require_once 'database/connection.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login SubiteyReza</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="/css/login.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css?v=2">
+
+
 </head>
 <body>
-
     <?php if (isset($_GET['msg'])): ?>
         <div class="container mt-3">
             <?php if ($_GET['msg'] == 'pending'): ?>
@@ -60,51 +61,22 @@ require_once 'database/connection.php';
         </div>
     <?php endif; ?>
 
-    <section class="vh-100">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card fondo text-white" style="border-radius: 1rem;">
-                        <div class="card-body p-5 text-center">
 
-                            <div class="mb-md-5 mt-md-4 pb-5">
-
-                                <h2 class="fw-bold mb-2 text-uppercase">Bienvenido</h2>
-                                <p class="text-white-50 mb-5">Inicia sesión aquí!</p>
-
-                                <form action="/functions/signIn.php" method="POST">
-
-                                    <div class="form-outline form-white mb-4">
-                                        <input type="email" name="correo" id="typeEmailX" class="form-control form-control-lg" required/>
-                                        <label class="form-label" for="typeEmailX">Email</label>
-                                    </div>
-
-                                    <div class="form-outline form-white mb-4">
-                                        <input type="password" name="contrasena" id="typePasswordX" class="form-control form-control-lg" required/>
-                                        <label class="form-label" for="typePasswordX">Contraseña</label>
-                                    </div>             
-
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Iniciar Sesión</button>
-                                </form>
-
-                            </div>
-                            <div>
-                                <p class="mb-2">¿No tienes una cuenta? 
-                                    <a href="/pages/signUpUsers.php" class="text-white-50 fw-bold">Regístrate aquí</a>
-                                </p>
-                                <p class="mb-0">
-                                    <a href="/pages/public_rides.php" class="text-white-50 fw-bold">
-                                        <i class="fas fa-eye me-1"></i>Ver Rides Disponibles
-                                    </a>
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card fondo text-white" style="width:400px; padding:2.5rem 2rem;">
+            <h2 class="text-center mb-3 fw-bold">BIENVENIDO</h2>
+            <p class="text-center mb-4 text-white-50">Inicia sesión aquí</p>
+            <form action="/functions/signIn.php" method="POST">
+                <input type="email" name="correo" class="form-control mb-3" placeholder="Email" required />
+                <input type="password" name="contrasena" class="form-control mb-3" placeholder="Contraseña" required />
+                <button class="btn btn-outline-light" type="submit">Iniciar Sesión</button>
+            </form>
+            <div class="mt-4">
+                <p class="mb-2">¿No tienes una cuenta? <a href="/pages/signUpUsers.php" class="text-white-50 fw-bold">Regístrate aquí</a></p>
+                <p class="mb-0 text-center"><a href="/pages/public_rides.php" class="text-white-50 fw-bold"><i class="fas fa-eye me-1"></i>Ver Rides Disponibles</a></p>
             </div>
         </div>
-    </section>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>

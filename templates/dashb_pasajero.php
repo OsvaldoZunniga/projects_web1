@@ -11,6 +11,15 @@ require_once '../database/queries.php';
 $conn = getConnection_BD();
 $idUsuario = $_SESSION['idUsuario'];
 
+$filtros = [
+    'salida' => $_GET['salida'] ?? '',
+    'llegada' => $_GET['llegada'] ?? ''
+];
+
+$orden = $_GET['orden'] ?? 'fecha_asc';
+
+$ridesDisponibles = obtenerRidesPublicos($conn, $filtros, $orden);
+
 ?>
 
 <!DOCTYPE html>
@@ -20,41 +29,136 @@ $idUsuario = $_SESSION['idUsuario'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pasajero</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/login.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css?v=2">
 </head>
 <body>
 <?php include '../templates/nav.php'; ?>
 
-    <!-- aqui van a ir los rides activos (tal vez no vaya aqui)-->
-    <div class="row mt-5">
-      <div class="col-12">
-        <div class="card shadow border-0" style="border-radius: 1rem; min-height: 400px;">
-          <div class="card-body p-4">
-            <h3 class="fw-bold mb-4" style="color: #1A281E;">Rides Activos</h3>
-            <div class="row g-4" id="reservas-container">
-              
+<div class="container-fluid py-5 h-100" style="padding-top: 40px; padding-bottom: 40px; margin:0;">
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card fondo text-white shadow border-0">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3" style="color: #eaf7d2;">Buscar Rides</h4>
+                    <form method="GET" action="">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold" style="color: #1A281E;">
+                                    Lugar de Salida
+                                </label>
+                                <input type="text" class="form-control" name="salida" 
+                                       value="<?= htmlspecialchars($filtros['salida']) ?>" 
+                                       placeholder="Ej: San José, Cartago...">
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold" style="color: #1A281E;">
+                                    Lugar de Llegada
+                                </label>
+                                <input type="text" class="form-control" name="llegada" 
+                                       value="<?= htmlspecialchars($filtros['llegada']) ?>" 
+                                       placeholder="Ej: Heredia, Alajuela...">
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold" style="color: #1A281E;">
+                                    Ordenar por
+                                </label>
+                                <select class="form-select" name="orden">
+                                    <option value="fecha_asc" <?= $orden === 'fecha_asc' ? 'selected' : '' ?>>
+                                        Fecha (Más próximo)
+                                    </option>
+                                    <option value="fecha_desc" <?= $orden === 'fecha_desc' ? 'selected' : '' ?>>
+                                        Fecha (Más lejano)
+                                    </option>
+                                    <option value="salida_asc" <?= $orden === 'salida_asc' ? 'selected' : '' ?>>
+                                        Origen (A-Z)
+                                    </option>
+                                    <option value="salida_desc" <?= $orden === 'salida_desc' ? 'selected' : '' ?>>
+                                        Origen (Z-A)
+                                    </option>
+                                    <option value="llegada_asc" <?= $orden === 'llegada_asc' ? 'selected' : '' ?>>
+                                        Destino (A-Z)
+                                    </option>
+                                    <option value="llegada_desc" <?= $orden === 'llegada_desc' ? 'selected' : '' ?>>
+                                        Destino (Z-A)
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-outline-light btn-lg px-4" style="width:auto;min-width:180px;">
+                                    Buscar Rides
+                                </button>
+                                <a href="/pages/dashboard.php" class="btn btn-outline-light btn-lg px-4 ms-2" style="background:#27AE60;color:#fffde8;width:auto;min-width:180px;">
+                                    Limpiar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
-    <!-- aqui van a ir las reservas -->
-    <div class="row mt-5">
-      <div class="col-12">
-        <div class="card shadow border-0" style="border-radius: 1rem; min-height: 400px;">
-          <div class="card-body p-4">
-            <h3 class="fw-bold mb-4" style="color: #1A281E;">Mis Reservas</h3>
-            <div class="row g-4" id="reservas-container">
-              
-            </div>
-          </div>
+    <!-- Rides Disponibles -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 style="color: #2ECC71;">
+                Rides Disponibles (<?= count($ridesDisponibles) ?>)
+            </h4>
         </div>
-      </div>
     </div>
 
-  </div> 
+    <div class="row mb-5">
+        <?php if (empty($ridesDisponibles)): ?>
+            <div class="col-12">
+                <div class="card fondo text-white border-0 shadow">
+                    <div class="card-body text-center p-5">
+                        <h4 style="color:#d6e5c0;">No se encontraron rides disponibles</h4>
+                        <p style="color:#d6e5c0;">
+                            <?php if (!empty($filtros['salida']) || !empty($filtros['llegada'])): ?>
+                                Intenta modificar tus criterios de búsqueda
+                            <?php else: ?>
+                                No hay rides disponibles en este momento
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <?php foreach ($ridesDisponibles as $ride): ?>
+                <?php include '../templates/cardRide.php'; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Mis Solicitudes -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card fondo text-white shadow border-0">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-4" style="color: #eaf7d2;">
+                        Mis Solicitudes de Reserva
+                    </h3>
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="text-center p-4">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
