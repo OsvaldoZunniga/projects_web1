@@ -16,7 +16,7 @@ $idRol = $_SESSION['idRoles'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/login.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/login.css?v=2">
 </head>
 <body>
     
@@ -45,10 +45,10 @@ $idRol = $_SESSION['idRoles'];
                 include '../templates/dashB_Admin.php';
                 break;
             case 2: 
-                //include '../templates/dashb_Pasajero.php';
+                include '../templates/dashb_pasajero.php';
                 break;
             case 1: 
-                include '../templates/dashb_Chofer.php';
+                include '../templates/dashb_chofer.php';
                 break;
             default:
                 echo '<div class="alert alert-danger"> Rol no reconocido.</div>';

@@ -31,18 +31,19 @@ if (!$vehiculo || $vehiculo['idUsuario'] != $_SESSION['idUsuario']) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editar Vehículo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/login.css" rel="stylesheet"/> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css?v=2"> 
 </head>
 <body>
 
 <section class="vh-100">
-  <div class="container py-5 h-100">
+  <div class="container py-5 h-100" style="padding-top: 40px; padding-bottom: 40px;">
     <div class="row d-flex justify-content-center align-items-start h-100">
 
-      <div class="col-12 col-md-11 col-lg-10 col-xl-9">
-        <div class="card fondo" style="border-radius: 1rem;">
-          <div class="card-body p-5">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-10 mx-auto">
+        <div class="card fondo text-white" style="border-radius: 20px; box-shadow: 0 4px 24px rgba(39, 174, 96, 0.12);">
+          <div class="card-body p-4">
 
             <h2 class="fw-bold mb-4 text-center">Editar Vehículo</h2>
             <p class="text-center mb-4">Actualiza la información de tu vehículo.</p>

@@ -18,9 +18,12 @@ $usuarios = obtenerUsuariosActivos($conn);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Administrador</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/login.css" rel="stylesheet"/> 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/login.css?v=2">
 </head>
 <body>
+<?php include '../templates/nav.php'; ?>
+
 <?php if (isset($_GET['msg'])): ?>
     <div class="alert alert-<?= $_GET['msg'] === 'desactivado' ? 'success' : 'danger' ?> text-center" role="alert">
         <?= $_GET['msg'] === 'desactivado' ? 'Usuario desactivado correctamente.' : 'Ocurrió un error al desactivar el usuario.' ?>
@@ -103,12 +106,12 @@ $usuarios = obtenerUsuariosActivos($conn);
         </div>
       </div>
       
-      <div class="col-12 col-md-11 col-lg-10 col-xl-9">
-        <div class="card p-4" style="background-color: #fefce0; border-radius:1rem;">
-          <h3 class="fw-bold mb-4 text-center">Usuarios Activos</h3>
+      <div class="col-12 col-md-11 col-lg-10 col-xl-9 mt-4">
+        <div class="card fondo text-white p-4" style="border-radius: 20px; box-shadow: 0 4px 24px rgba(39, 174, 96, 0.12);">
+          <h3 class="fw-bold mb-4 text-center" style="color: #eaf7d2;">Usuarios Activos</h3>
           <div class="table-responsive">
             <table class="table table-striped table-hover">
-              <thead class="table-dark">
+              <thead style="background-color: #2ECC71; color: #fffde8;">
                 <tr>
                   <th>Nombre</th>
                   <th>Apellido</th>
@@ -118,7 +121,7 @@ $usuarios = obtenerUsuariosActivos($conn);
                   <th>Acción</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody style="background-color: #fffde8; color: #13281F;">
                 <?php foreach($usuarios as $user): ?>
                 <tr>
                 <td><?= htmlspecialchars($user['nombre']) ?></td>

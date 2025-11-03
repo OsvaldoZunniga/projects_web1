@@ -1,9 +1,19 @@
 <div class="col-md-4 mb-4">
-  <a href="detalles_ride.php?id=<?= $ride['idRide'] ?>" class="text-decoration-none">
-    <div class="card shadow border-0 h-100 card-clickable" 
-         style="border-radius: 0.8rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1) !important; transition: transform 0.2s, box-shadow 0.2s;">
+  <?php if (isset($isPublicPage) && $isPublicPage): ?>
+    <!-- Para página pública -->
+    <div class="card shadow border-0 h-100" 
+         style="border-radius: 0.8rem; cursor: pointer; transition: transform 0.2s;"
+         onclick="mostrarAlertaRegistro()"
+         onmouseover="this.style.transform='translateY(-5px)'"
+         onmouseout="this.style.transform='translateY(0)'">
+  <?php else: ?>
+    <!-- Para dashboard chofer -->
+    <a href="update_ride.php?id=<?= $ride['idRide'] ?>" class="text-decoration-none">
+      <div class="card shadow border-0 h-100 card-clickable" 
+           style="border-radius: 0.8rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1) !important; transition: transform 0.2s, box-shadow 0.2s;">
+  <?php endif; ?>
       
-      <div class="card-header text-white text-center" style="background-color: #1A281E; border-radius: 0.8rem 0.8rem 0 0;">
+      <div class="card-header text-white text-center" style="background-color: #2ECC71; border-radius: 0.8rem 0.8rem 0 0;">
         <h5 class="mb-0 fw-bold"><?= htmlspecialchars($ride['nombre']) ?></h5>
       </div>
       
@@ -12,7 +22,7 @@
         <div class="mb-3 pb-3 border-bottom">
           <p class="text-muted mb-1">
             <i class="fas fa-car me-2"></i>
-            <strong>Vehículo:</strong> <?= htmlspecialchars($ride['marca']) ?> <?= htmlspecialchars($ride['modelo']) ?>
+            <strong>Vehículo:</strong> <?= htmlspecialchars($ride['marca']) ?> <?= htmlspecialchars($ride['modelo']) ?><?= isset($ride['anio']) ? ' (' . htmlspecialchars($ride['anio']) . ')' : '' ?>
           </p>
           <p class="text-muted mb-0">
             <i class="fas fa-palette me-2"></i>
@@ -49,7 +59,8 @@
           <div>
             <i class="fas fa-users me-2"></i>
             <strong>Espacios:</strong>
-            <span class="badge bg-primary"><?= $ride['espacios'] ?></span>
+            <span class="badge <?= isset($isPublicPage) && $isPublicPage ? 'text-white' : 'bg-primary' ?>" 
+                  style="<?= isset($isPublicPage) && $isPublicPage ? 'background-color: #1A281E;' : '' ?>"><?= $ride['espacios'] ?></span>
           </div>
           <div>
             <h5 class="mb-0 text-success fw-bold">
@@ -57,7 +68,19 @@
             </h5>
           </div>
         </div>
+
+        <?php if (isset($isPublicPage) && $isPublicPage): ?>
+          <div class="mt-3">
+              <div class="alert alert-info alert-sm mb-0" role="alert">
+                  <small>Haz clic para reservar este ride</small>
+              </div>
+          </div>
+        <?php endif; ?>
       </div>
-    </div>
-  </a>
+    <?php if (isset($isPublicPage) && $isPublicPage): ?>
+      </div>
+    <?php else: ?>
+      </div>
+    </a>
+    <?php endif; ?>
 </div>

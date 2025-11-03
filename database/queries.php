@@ -69,4 +69,71 @@ function obtenerRidesPorUsuario($conn, $idUsuario) {
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
+function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
+    $sql = "SELECT 
+                r.idRide, 
+                r.nombre, 
+                r.salida, 
+                r.llegada, 
+                r.hora, 
+                r.fecha, 
+                r.espacios, 
+                r.costo_espacio,
+                v.marca,
+                v.modelo,
+                v.anio,
+                v.color
+            FROM ride r
+            INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            WHERE r.fecha >= CURDATE()";
+    
+    $params = [];
+    $types = "";
+    
+    // Filtros de búsqueda
+    if (!empty($filtros['salida'])) {
+        $sql .= " AND r.salida LIKE ?";
+        $params[] = "%" . $filtros['salida'] . "%";
+        $types .= "s";
+    }
+    
+    if (!empty($filtros['llegada'])) {
+        $sql .= " AND r.llegada LIKE ?";
+        $params[] = "%" . $filtros['llegada'] . "%";
+        $types .= "s";
+    }
+    
+    // Ordenamiento
+    switch ($orden) {
+        case 'fecha_desc':
+            $sql .= " ORDER BY r.fecha DESC, r.hora DESC";
+            break;
+        case 'salida_asc':
+            $sql .= " ORDER BY r.salida ASC";
+            break;
+        case 'salida_desc':
+            $sql .= " ORDER BY r.salida DESC";
+            break;
+        case 'llegada_asc':
+            $sql .= " ORDER BY r.llegada ASC";
+            break;
+        case 'llegada_desc':
+            $sql .= " ORDER BY r.llegada DESC";
+            break;
+        default: // fecha_asc
+            $sql .= " ORDER BY r.fecha ASC, r.hora ASC";
+            break;
+    }
+    
+    $stmt = $conn->prepare($sql);
+    
+    if (!empty($params)) {
+        $stmt->bind_param($types, ...$params);
+    }
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 ?>

@@ -6,17 +6,12 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 $email = $_SESSION['correo'] ?? '';
 ?>
-<nav class="navbar navbar-expand-lg" style="background-color: #1A281E; color: #fefce0;">
+<nav class="navbar navbar-expand-lg" style="background-color:  #13281F; color:#f1f6e9">
   <div class="container-fluid px-4">
-    <a class="navbar-brand d-flex align-items-center text-decoration-none" href="#" style="color: #fefce0;">
+    <a class="navbar-brand d-flex align-items-center text-decoration-none" href="#" style="color: #f1f6e9;">
       <img src="../assets/logo.jpg" alt="Logo" height="35" class="me-2 rounded-circle">
       <span class="fw-bold">RideConnect</span>
     </a>
-
-    <form class="d-flex mx-auto" style="width: 40%;">
-      <input class="form-control me-2" type="search" placeholder="Buscar Ride" aria-label="Buscar Ride">
-      <button class="btn btn-outline-light" type="submit">🔍</button>
-    </form>
 
     <div class="profile d-flex align-items-center">
       <a href="../pages/profile_settings.php">

@@ -61,7 +61,7 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
                 <p class="text-center" style="color: #d6e5c0;">No hay vehículos registrados aún.</p>
               <?php else: ?>
                 <?php foreach($vehiculos as $vehiculo): ?>
-                  <?php
+                  <?php 
                     $item = [
                       'id' => $vehiculo['idVehiculo'],
                       'imagen' => $vehiculo['foto'],
