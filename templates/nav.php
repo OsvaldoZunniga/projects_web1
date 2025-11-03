@@ -6,9 +6,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 $email = $_SESSION['correo'] ?? '';
 ?>
-<nav class="navbar navbar-expand-lg" style="background-color: #1A281E; color: #fefce0;">
+<nav class="navbar navbar-expand-lg" style="background-color:  #13281F; color:#f1f6e9">
   <div class="container-fluid px-4">
-    <a class="navbar-brand d-flex align-items-center text-decoration-none" href="#" style="color: #fefce0;">
+    <a class="navbar-brand d-flex align-items-center text-decoration-none" href="#" style="color: #f1f6e9;">
       <img src="../assets/logo.jpg" alt="Logo" height="35" class="me-2 rounded-circle">
       <span class="fw-bold">RideConnect</span>
     </a>
