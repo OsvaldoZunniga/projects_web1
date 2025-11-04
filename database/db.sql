@@ -50,6 +50,7 @@ CREATE TABLE reserva(
     idRide INT NOT NULL,
     idUsuario INT NOT NULL,
     estado varchar(20) not null DEFAULT 'Pendiente',
+    fecha DATETIME DEFAULT (CURRENT_DATE),
     CONSTRAINT fk_reserva_usuarios FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario),
     CONSTRAINT fk_reserva_ride FOREIGN KEY (idRide) REFERENCES ride(idRide)
 );
