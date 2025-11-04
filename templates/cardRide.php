@@ -1,3 +1,8 @@
+<?php
+  $role = $_SESSION['idRoles'];
+?>
+
+
 <div class="col-md-4 mb-4">
   <?php if (isset($isPublicPage) && $isPublicPage): ?>
     <!-- Para página pública -->
@@ -8,6 +13,7 @@
          onmouseout="this.style.transform='translateY(0)'">
   <?php else: ?>
     <!-- Para dashboard chofer -->
+
     <a href="update_ride.php?id=<?= $ride['idRide'] ?>" class="text-decoration-none">
       <div class="card shadow border-0 h-100 card-clickable" 
            style="border-radius: 0.8rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1) !important; transition: transform 0.2s, box-shadow 0.2s;">
@@ -68,6 +74,15 @@
             </h5>
           </div>
         </div>
+        
+        <?php if ($role == 2): ?>
+          <form action="../functions/reservas.php" method="post" class="mt-3">
+            <input type="hidden" name="ride_id" value="<?= $ride['idRide'] ?>">
+            <button type="submit" class="btn btn-success w-100">
+              <i class="fas fa-check-circle me-2"></i> Reservar
+            </button>
+          </form>
+        <?php endif; ?>
 
         <?php if (isset($isPublicPage) && $isPublicPage): ?>
           <div class="mt-3">
