@@ -4,4 +4,7 @@
 - El admin solo crea mas admin
 - Validar asientos disponibles *solo si esta en el doc*
 - Al momento de pedir un ride se le settea la cantidad de personas que abordan
+
+# Pendientes #
+- Insercion de reservas(hacer tabla de reserva estilo intermediaria y hacer el ride comunitario)
 ###
