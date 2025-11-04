@@ -7,4 +7,5 @@
 
 # Pendientes #
 - Insercion de reservas(hacer tabla de reserva estilo intermediaria y hacer el ride comunitario)
+- Crear trigger para contar los pasajeros por ride, si alcanza la capacidad del carro que cambie el estado a En Curso
 ###
