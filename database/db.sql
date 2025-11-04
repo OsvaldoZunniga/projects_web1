@@ -52,4 +52,4 @@ CREATE TABLE reserva(
     estado varchar(20) not null DEFAULT 'Pendiente',
     CONSTRAINT fk_reserva_usuarios FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario),
     CONSTRAINT fk_reserva_ride FOREIGN KEY (idRide) REFERENCES ride(idRide)
-);
+);//agregar columna de hora de solicitud de reservacion 

@@ -1,5 +1,6 @@
 <?php 
 require_once '../database/connection.php'; 
+require_once '../database/queries.php';
 require '../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -22,6 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($contrasena !== $contrasena_confirm) {
         header("Location: ../pages/signUpUsers.php?msg=pass_mismatch");
+        exit;
+    }
+
+    if (verificarCedulaExiste($conn, $cedula)) {
+        header("Location: ../pages/signUpUsers.php?msg=cedula_existe");
+        exit;
+    }
+
+    if (verificarCorreoExiste($conn, $correo)) {
+        header("Location: ../pages/signUpUsers.php?msg=correo_existe");
         exit;
     }
 

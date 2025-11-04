@@ -24,6 +24,25 @@ require_once '../database/connection.php';
             <h2 class="fw-bold mb-4 text-center">Registro de Usuarios</h2>
             <p class="text-center mb-4">Crea una nueva cuenta aquí!</p>
 
+            <?php if (isset($_GET['msg'])): ?>
+              <?php if ($_GET['msg'] == 'cedula_existe'): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Error:</strong> La cédula ingresada ya está registrada en el sistema. Por favor, verifica el dato.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php elseif ($_GET['msg'] == 'correo_existe'): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Error:</strong> El correo electrónico ya está registrado en el sistema. Por favor, utiliza otro correo.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php elseif ($_GET['msg'] == 'pass_mismatch'): ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>Advertencia:</strong> Las contraseñas no coinciden. Por favor, inténtalo de nuevo.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php endif; ?>
+            <?php endif; ?>
+
             <ul class="nav nav-tabs mb-4 justify-content-center" id="registroTabs" role="tablist">
               <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="chofer-tab" data-bs-toggle="tab" data-bs-target="#chofer" type="button" role="tab">Chofer</button>

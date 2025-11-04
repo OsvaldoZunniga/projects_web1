@@ -136,4 +136,22 @@ function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
+function verificarCedulaExiste($conn, $cedula) {
+    $sql = "SELECT idUsuario FROM usuarios WHERE cedula = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $cedula);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->num_rows > 0;
+}
+
+function verificarCorreoExiste($conn, $correo) {
+    $sql = "SELECT idUsuario FROM usuarios WHERE correo = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $correo);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->num_rows > 0;
+}
 ?>
