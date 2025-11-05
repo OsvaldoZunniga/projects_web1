@@ -220,4 +220,5 @@ function cancelarReserva($conn, $idReserva) {
     $stmt->bind_param("i", $idReserva);
     return $stmt->execute();
 }
+
 ?>
