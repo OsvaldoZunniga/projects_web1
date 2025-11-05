@@ -19,6 +19,7 @@ $filtros = [
 $orden = $_GET['orden'] ?? 'fecha_asc';
 
 $ridesDisponibles = obtenerRidesPublicos($conn, $filtros, $orden);
+$reservas = obtenerReservasPorUsuario($conn, $idUsuario);
 
 ?>
 
@@ -137,25 +138,64 @@ $ridesDisponibles = obtenerRidesPublicos($conn, $filtros, $orden);
         <?php endif; ?>
     </div>
 
-    <!-- Mis Solicitudes -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card fondo text-white shadow border-0">
-                <div class="card-body p-4">
-                    <h3 class="fw-bold mb-4" style="color: #eaf7d2;">
-                        Mis Solicitudes de Reserva
-                    </h3>
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="text-center p-4">
-                               
-                            </div>
+        <!-- Mis Solicitudes -->
+        <div class="row">
+                <div class="col-12">
+                        <div class="card fondo text-white shadow border-0">
+                                <div class="card-body p-4">
+                                        <h3 class="fw-bold mb-4" style="color: #eaf7d2;">
+                                                Mis Solicitudes de Reserva
+                                        </h3>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <thead style="background-color: #2ECC71; color: #fffde8;">
+                                                    <tr>
+                                                        <th>Reserva</th>
+                                                        <th>Ride</th>
+                                                        <th>Origen</th>
+                                                        <th>Destino</th>
+                                                        <th>Fecha</th>
+                                                        <th>Hora</th>
+                                                        <th>Vehículo</th>
+                                                        <th>Estado</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="background-color: #fffde8; color: #13281F;">
+                                                    <?php if (empty($reservas)): ?>
+                                                        <tr>
+                                                            <td colspan="9" class="text-center">No tienes solicitudes de reserva</td>
+                                                        </tr>
+                                                    <?php else: ?>
+                                                        <?php foreach ($reservas as $res): ?>
+                                                            <tr>
+                                                                <td><?= htmlspecialchars($res['idReserva']) ?></td>
+                                                                <td><?= htmlspecialchars($res['ride_nombre']) ?></td>
+                                                                <td><?= htmlspecialchars($res['salida']) ?></td>
+                                                                <td><?= htmlspecialchars($res['llegada']) ?></td>
+                                                                <td><?= htmlspecialchars($res['fecha']) ?></td>
+                                                                <td><?= htmlspecialchars($res['hora']) ?></td>
+                                                                <td><?= htmlspecialchars($res['marca']) ?> <?= htmlspecialchars($res['modelo']) ?> - <?= htmlspecialchars($res['color']) ?></td>
+                                                                <td><?= htmlspecialchars($res['estado']) ?></td>
+                                                                <td>
+                                                                    <form method="POST" action="../functions/update_reservas.php" style="display:inline;">
+                                                                        <input type="hidden" name="idReserva" value="<?= htmlspecialchars($res['idReserva']) ?>">
+                                                                        <input type="hidden" name="action" value="cancelar">
+                                                                        <button type="submit" class="btn btn-danger btn-sm" <?= $res['estado'] !== 'Pendiente' ? 'disabled' : '' ?>>Cancelar</button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                </div>
                         </div>
-                    </div>
                 </div>
-            </div>
         </div>
-    </div>
 
 </div>
 

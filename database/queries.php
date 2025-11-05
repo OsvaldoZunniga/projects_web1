@@ -43,6 +43,31 @@ function obtenerVehiculoPorId($conn, $idVehiculo) {
     return $result->fetch_assoc();
 }
 
+function obtenerRidePorId($conn, $idRide) {
+    $sql = "SELECT 
+                r.idRide, 
+                r.idVehiculo, 
+                r.nombre, 
+                r.salida, 
+                r.llegada, 
+                r.hora, 
+                r.fecha, 
+                r.espacios, 
+                r.costo_espacio,
+                v.marca,
+                v.modelo,
+                v.color
+            FROM ride r
+            INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            WHERE r.idRide = ?";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idRide);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
 function obtenerRidesPorUsuario($conn, $idUsuario) {
     $sql = "SELECT 
                 r.idRide, 
@@ -153,5 +178,46 @@ function verificarCorreoExiste($conn, $correo) {
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->num_rows > 0;
+}
+
+function insertarReserva($conn, $idRide, $idUsuario) {
+    $sql = "INSERT INTO reserva(idRide, idUsuario) 
+            VALUES (?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $idRide, $idUsuario);
+    return $stmt->execute();
+}
+
+function obtenerReservasPorUsuario($conn, $idUsuario) {
+    $sql = "SELECT 
+                res.idReserva,
+                res.idRide,
+                res.estado,
+                r.nombre AS ride_nombre,
+                r.salida,
+                r.llegada,
+                r.fecha,
+                r.hora,
+                v.marca,
+                v.modelo,
+                v.color
+            FROM reserva res
+            INNER JOIN ride r ON res.idRide = r.idRide
+            INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            WHERE res.idUsuario = ?
+            ORDER BY res.idReserva DESC";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function cancelarReserva($conn, $idReserva) {
+    $sql = "UPDATE reserva SET estado = 'Cancelada' WHERE idReserva = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idReserva);
+    return $stmt->execute();
 }
 ?>
