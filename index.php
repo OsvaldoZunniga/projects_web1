@@ -57,6 +57,12 @@ require_once 'database/connection.php';
                     Error al subir la imagen. Por favor, intenta de nuevo.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
+            <?php elseif ($_GET['msg'] == 'logout_success'): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    Has cerrado sesión exitosamente. ¡Hasta pronto!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
             <?php endif; ?>
         </div>
     <?php endif; ?>
@@ -64,6 +70,7 @@ require_once 'database/connection.php';
 
     <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card fondo text-white" style="width:400px; padding:2.5rem 2rem;">
+        
             <h2 class="text-center mb-3 fw-bold">BIENVENIDO</h2>
             <p class="text-center mb-4 text-white-50">Inicia sesión aquí</p>
             <form action="/functions/signIn.php" method="POST">
