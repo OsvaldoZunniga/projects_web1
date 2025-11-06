@@ -2,6 +2,13 @@
 session_start();
 require_once '../database/connection.php';
 
+//logout
+if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
+    session_destroy();
+    header("Location: ../index.php?msg=logout_success");
+    exit();
+}
+
 $conn = getConnection_BD();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
