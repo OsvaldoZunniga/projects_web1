@@ -1,5 +1,5 @@
 <?php
-$role = $_SESSION['idRoles'];
+$role = isset($_SESSION['idRoles']) ? $_SESSION['idRoles'] : 0;
 $esPublica = isset($isPublicPage) && $isPublicPage;
 $esChoferEnDashboard = !$esPublica && $role == 1;
 ?>
