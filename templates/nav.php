@@ -18,6 +18,11 @@ $email = $_SESSION['correo'] ?? '';
         <img src="../<?php echo htmlspecialchars(getProfileIcon($email), ENT_QUOTES, 'UTF-8'); ?>" 
              alt="Profile" class="rounded-circle border border-light" height="35" style="cursor: pointer;">
       </a>
+      
+      <a href="../functions/signIn.php?logout=true" class="btn btn-success ms-3" style="background-color: #2ECC71; border-color: #2ECC71;">
+        <i class="fas fa-sign-out-alt me-1"></i>
+        Cerrar Sesión
+      </a>
     </div>
   </div>
 </nav>
