@@ -130,9 +130,6 @@ require_once '../database/connection.php';
                                 <button type="submit" class="btn btn-outline-light btn-lg">Actualizar info</button>
                             </div>
                             </form>
-                            <p class="text-center mt-3">
-                                <a href="../index.php" class="text-white-50 fw-bold">Cerrar Sesion</a>
-                            </p>
                         </div>
 
                     </div>
