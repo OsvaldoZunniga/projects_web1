@@ -14,11 +14,10 @@
         include '../templates/nav.php'; 
         
         require_once '../database/connection.php';
-        include '../database/queries.php';
+        require_once '../database/queries.php';
 
         $conn = getConnection_BD();
         $idUsuario = $_SESSION['idUsuario'];
-        
         
     ?>
 
