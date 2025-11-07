@@ -59,7 +59,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->close();
         
     } elseif ($accion === 'eliminar') {
+        
+        // elimina todas las reservas asociadas a los rides de vehiculo
+        $sqlEliminarReservas = "DELETE FROM reserva WHERE idRide IN (SELECT idRide FROM ride WHERE idVehiculo = ?)";
+        $stmtReservas = $conn->prepare($sqlEliminarReservas);
+        $stmtReservas->bind_param("i", $idVehiculo);
+        $stmtReservas->execute();
+        $stmtReservas->close();
+        
+        // elimina todos los rides asociados al vehículo
+        $sqlEliminarRides = "DELETE FROM ride WHERE idVehiculo = ?";
+        $stmtRides = $conn->prepare($sqlEliminarRides);
+        $stmtRides->bind_param("i", $idVehiculo);
+        $stmtRides->execute();
+        $stmtRides->close();
 
+        // eliminar el vehiculo y su foto
         if (!empty($vehiculo['foto']) && file_exists('../' . $vehiculo['foto'])) {
             unlink('../' . $vehiculo['foto']);
         }
