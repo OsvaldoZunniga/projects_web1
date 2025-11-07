@@ -21,10 +21,12 @@ function desactivarUsuario($conn, $idUsuario) {
 }
 
 function obtenerVehiculosPorUsuario($conn, $idUsuario) {
-    $sql = "SELECT idVehiculo, placa, color, marca, modelo, anio, capacidad, foto
-            FROM vehiculos
-            WHERE idUsuario = ?
-            ORDER BY idVehiculo DESC";
+    $sql = "SELECT v.idVehiculo, v.placa, v.color, v.marca, v.modelo, v.anio, v.capacidad, v.foto
+            FROM vehiculos v
+            INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
+            WHERE v.idUsuario = ? 
+            AND u.estado = 'Activo'
+            ORDER BY v.idVehiculo DESC";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $idUsuario);
     $stmt->execute();
@@ -33,9 +35,11 @@ function obtenerVehiculosPorUsuario($conn, $idUsuario) {
 }
 
 function obtenerVehiculoPorId($conn, $idVehiculo) {
-    $sql = "SELECT idVehiculo, idUsuario, placa, color, marca, modelo, anio, capacidad, foto
-            FROM vehiculos
-            WHERE idVehiculo = ?";
+    $sql = "SELECT v.idVehiculo, v.idUsuario, v.placa, v.color, v.marca, v.modelo, v.anio, v.capacidad, v.foto
+            FROM vehiculos v
+            INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
+            WHERE v.idVehiculo = ?
+            AND u.estado = 'Activo'";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $idVehiculo);
     $stmt->execute();
@@ -59,7 +63,10 @@ function obtenerRidePorId($conn, $idRide) {
                 v.color
             FROM ride r
             INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
-            WHERE r.idRide = ?";
+            INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
+            WHERE r.idRide = ?
+            AND u.estado = 'Activo'
+            AND v.idVehiculo IS NOT NULL";
     
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $idRide);
@@ -86,6 +93,8 @@ function obtenerRidesPorUsuario($conn, $idUsuario) {
             INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
             INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
             WHERE u.idUsuario = ?
+            AND u.estado = 'Activo'
+            AND v.idVehiculo IS NOT NULL
             ORDER BY r.idRide DESC";
     
     $stmt = $conn->prepare($sql);
@@ -111,7 +120,10 @@ function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
                 v.color
             FROM ride r
             INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
-            WHERE r.fecha >= CURDATE()";
+            INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
+            WHERE r.fecha >= CURDATE() 
+            AND u.estado = 'Activo'
+            AND v.idVehiculo IS NOT NULL";
     
     $params = [];
     $types = "";
@@ -204,7 +216,10 @@ function obtenerReservasPorUsuario($conn, $idUsuario) {
             FROM reserva res
             INNER JOIN ride r ON res.idRide = r.idRide
             INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
             WHERE res.idUsuario = ?
+            AND u.estado = 'Activo'
+            AND v.idVehiculo IS NOT NULL
             ORDER BY res.idReserva DESC";
     
     $stmt = $conn->prepare($sql);
