@@ -62,16 +62,6 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
               <?php else: ?>
                 <?php foreach($vehiculos as $vehiculo): ?>
                   <?php
-                    $item = [
-                      'id' => $vehiculo['idVehiculo'],
-                      'imagen' => $vehiculo['foto'],
-                      'titulo' => $vehiculo['marca'],
-                      'campos' => [
-                        'Placa' => $vehiculo['placa'],
-                        'Modelo' => $vehiculo['modelo']
-                      ],
-                      'link' => '../pages/vehicles_settings.php?id=' . $vehiculo['idVehiculo']
-                    ];
                     include 'card.php'; 
                   ?>
                 <?php endforeach; ?>
