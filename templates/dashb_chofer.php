@@ -12,6 +12,7 @@ $conn = getConnection_BD();
 $idUsuario = $_SESSION['idUsuario'];
 $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
 $rides = obtenerRidesPorUsuario($conn, $idUsuario);
+$reservas = obtenerReservasPendientes($conn);
 ?>
 
 <!DOCTYPE html>
@@ -110,9 +111,26 @@ $rides = obtenerRidesPorUsuario($conn, $idUsuario);
       <div class="col-12">
         <div class="card fondo text-white shadow border-0" style="border-radius: 20px; min-height: 400px; box-shadow: 0 4px 24px rgba(39, 174, 96, 0.12);">
           <div class="card-body p-4">
-            <h3 class="fw-bold mb-4" style="color: #eaf7d2;">Mis Reservas</h3>
-            <div class="row g-4" id="reservas-container">
-              
+            <h3 class="fw-bold mb-4" style="color: #eaf7d2;">Reservas Pendientes</h3>
+            <div class="row g-4" id="rides-container">
+              <?php
+                if (empty($reservas)): ?>
+                  <p class="text-center" style="color: #d6e5c0;">No hay reservas pendientes</p>
+                <?php else: ?>
+                  <?php foreach ($reservas as $reserva):
+                    $reserva = [
+                      'idReserva' => $reserva['idReserva'],
+                      'idUsuario' => $reserva['idUsuario'],
+                      'ride_nombre' => $reserva['ride_nombre'],
+                      'estado' => $reserva['estado'],
+                      'nombre' => $reserva['nombre'],
+                      'apellido' => $reserva['apellido'],
+                      'cedula' => $reserva['cedula'],
+                      'correo' => $reserva['correo']  
+                    ];
+                    include 'cardReserva.php';
+                  endforeach; ?>
+                <?php endif; ?>            
             </div>
           </div>
         </div>

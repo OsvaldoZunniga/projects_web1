@@ -6,15 +6,15 @@ $esChoferEnDashboard = !$esPublica && $role == 1;
 
 <div class="col-md-4 mb-4">
   <?php if ($esChoferEnDashboard): ?>
-    <a href="rides_settings.php?id=<?= $ride['idRide'] ?>" class="text-decoration-none">
+    <a href="rides_settings.php?id=<?= htmlspecialchars($ride['idRide']) ?>" class="text-decoration-none">
   <?php endif; ?>
-  
+
   <div class="card shadow border-0 h-100" 
        style="border-radius: 0.8rem; transition: transform 0.2s; <?= $esChoferEnDashboard ? 'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1) !important;' : '' ?>"
        <?= $esPublica ? 'onclick="mostrarAlertaRegistro()" style="cursor: pointer;"' : '' ?>
        onmouseover="this.style.transform='translateY(-5px)'"
        onmouseout="this.style.transform='translateY(0)'">
-      
+
       <div class="card-header text-white text-center" style="background-color: #2ECC71; border-radius: 0.8rem 0.8rem 0 0;">
         <h5 class="mb-0 fw-bold"><?= htmlspecialchars($ride['nombre']) ?></h5>
       </div>
@@ -71,9 +71,10 @@ $esChoferEnDashboard = !$esPublica && $role == 1;
           </div>
         </div>
         
-        <?php if (!$esPublica && $role == 2): ?>
-          <form action="../functions/reservas.php" method="post" class="mt-3">
-            <input type="hidden" name="ride_id" value="<?= $ride['idRide'] ?>">
+        <?php if ($role == 2): ?>
+          <!-- En partidas públicas o en dashboard pasajero usamos user_reservas.php -->
+          <form action="../functions/user_reservas.php" method="post" class="mt-3">
+            <input type="hidden" name="ride_id" value="<?= htmlspecialchars($ride['idRide']) ?>">
             <button type="submit" class="btn btn-success w-100">
               <i class="fas fa-check-circle me-2"></i> Reservar
             </button>
@@ -88,8 +89,8 @@ $esChoferEnDashboard = !$esPublica && $role == 1;
           </div>
         <?php endif; ?>
       </div>
-  </div>
-  
+    </div>
+
   <?php if ($esChoferEnDashboard): ?>
     </a>
   <?php endif; ?>
