@@ -76,7 +76,7 @@
         </div>
         
         <?php if ($role == 2): ?>
-          <form action="../functions/reservas.php" method="post" class="mt-3">
+          <form action="../functions/user_reservas.php" method="post" class="mt-3">
             <input type="hidden" name="ride_id" value="<?= $ride['idRide'] ?>">
             <button type="submit" class="btn btn-success w-100">
               <i class="fas fa-check-circle me-2"></i> Reservar
