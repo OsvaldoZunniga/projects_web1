@@ -42,6 +42,7 @@ CREATE TABLE ride(
     fecha DATE NOT NULL,
     espacios INT NOT NULL,
     costo_espacio DECIMAL(10,2) NOT NULL,
+    estado varchar(30) DEFAULT 'Pendiente'
     CONSTRAINT fk_ride_vehiculos FOREIGN KEY (idVehiculo) REFERENCES vehiculos(idVehiculo)
 );
 
@@ -53,4 +54,6 @@ CREATE TABLE reserva(
     fecha DATETIME DEFAULT (CURRENT_DATE),
     CONSTRAINT fk_reserva_usuarios FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario),
     CONSTRAINT fk_reserva_ride FOREIGN KEY (idRide) REFERENCES ride(idRide)
-);//agregar columna de hora de solicitud de reservacion 
+); 
+
+
