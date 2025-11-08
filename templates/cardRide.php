@@ -1,23 +1,19 @@
 <?php
-  $role = $_SESSION['idRoles'];
+$role = isset($_SESSION['idRoles']) ? $_SESSION['idRoles'] : 0;
+$esPublica = isset($isPublicPage) && $isPublicPage;
+$esChoferEnDashboard = !$esPublica && $role == 1;
 ?>
 
-
 <div class="col-md-4 mb-4">
-  <?php if (isset($isPublicPage) && $isPublicPage): ?>
-    <!-- Para página pública -->
-    <div class="card shadow border-0 h-100" 
-         style="border-radius: 0.8rem; cursor: pointer; transition: transform 0.2s;"
-         onclick="mostrarAlertaRegistro()"
-         onmouseover="this.style.transform='translateY(-5px)'"
-         onmouseout="this.style.transform='translateY(0)'">
-  <?php else: ?>
-    <!-- Para dashboard chofer -->
-
-    <a href="update_ride.php?id=<?= $ride['idRide'] ?>" class="text-decoration-none">
-      <div class="card shadow border-0 h-100 card-clickable" 
-           style="border-radius: 0.8rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1) !important; transition: transform 0.2s, box-shadow 0.2s;">
+  <?php if ($esChoferEnDashboard): ?>
+    <a href="rides_settings.php?id=<?= $ride['idRide'] ?>" class="text-decoration-none">
   <?php endif; ?>
+  
+  <div class="card shadow border-0 h-100" 
+       style="border-radius: 0.8rem; transition: transform 0.2s; <?= $esChoferEnDashboard ? 'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1) !important;' : '' ?>"
+       <?= $esPublica ? 'onclick="mostrarAlertaRegistro()" style="cursor: pointer;"' : '' ?>
+       onmouseover="this.style.transform='translateY(-5px)'"
+       onmouseout="this.style.transform='translateY(0)'">
       
       <div class="card-header text-white text-center" style="background-color: #2ECC71; border-radius: 0.8rem 0.8rem 0 0;">
         <h5 class="mb-0 fw-bold"><?= htmlspecialchars($ride['nombre']) ?></h5>
@@ -83,8 +79,16 @@
             </button>
           </form>
         <?php endif; ?>
+        <?php if (!$esPublica && $role == 2): ?>
+          <form action="../functions/reservas.php" method="post" class="mt-3">
+            <input type="hidden" name="ride_id" value="<?= $ride['idRide'] ?>">
+            <button type="submit" class="btn btn-success w-100">
+              <i class="fas fa-check-circle me-2"></i> Reservar
+            </button>
+          </form>
+        <?php endif; ?>
 
-        <?php if (isset($isPublicPage) && $isPublicPage): ?>
+        <?php if ($esPublica): ?>
           <div class="mt-3">
               <div class="alert alert-info alert-sm mb-0" role="alert">
                   <small>Haz clic para reservar este ride</small>
@@ -92,10 +96,9 @@
           </div>
         <?php endif; ?>
       </div>
-    <?php if (isset($isPublicPage) && $isPublicPage): ?>
-      </div>
-    <?php else: ?>
-      </div>
+  </div>
+  
+  <?php if ($esChoferEnDashboard): ?>
     </a>
-    <?php endif; ?>
+  <?php endif; ?>
 </div>
