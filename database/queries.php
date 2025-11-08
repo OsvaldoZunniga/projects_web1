@@ -131,6 +131,7 @@ function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
             INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
             WHERE r.fecha >= CURDATE() 
             AND u.estado = 'Activo'
+            AND r.estado != 'Realizado'
             AND v.idVehiculo IS NOT NULL";
     
     $params = [];
