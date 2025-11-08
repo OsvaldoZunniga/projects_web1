@@ -112,7 +112,8 @@ function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
                 r.llegada, 
                 r.hora, 
                 r.fecha, 
-                r.espacios, 
+                r.espacios,
+                r.estado, 
                 r.costo_espacio,
                 v.marca,
                 v.modelo,
@@ -228,12 +229,32 @@ function obtenerReservasPorUsuario($conn, $idUsuario) {
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
-
-function cancelarReserva($conn, $idReserva) {
-    $sql = "UPDATE reserva SET estado = 'Cancelada' WHERE idReserva = ?";
+function actualizarEstadoReserva($conn, $idReserva, $action) {
+    $sql = "UPDATE reserva SET estado = ? WHERE idReserva = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $idReserva);
+    $stmt->bind_param("si", $action, $idReserva);
     return $stmt->execute();
 }
-
+function obtenerReservasPendientes($conn) {
+    $sql = "SELECT 
+                res.idReserva,
+                res.idUsuario,
+                res.estado,
+                u.nombre,
+                u.apellido,
+                u.cedula,
+                u.correo,
+                r.nombre AS ride_nombre
+            FROM reserva res
+            INNER JOIN usuarios u ON res.idUsuario = u.idUsuario
+            inner JOIN ride r ON res.idRide = r.idRide
+            WHERE res.estado = 'Pendiente'
+            ORDER BY res.idReserva DESC";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 ?>
+
