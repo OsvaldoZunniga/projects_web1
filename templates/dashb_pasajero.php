@@ -182,7 +182,7 @@ $reservas = obtenerReservasPorUsuario($conn, $idUsuario);
                                                                     <form method="POST" action="../functions/update_reservas.php" style="display:inline;">
                                                                         <input type="hidden" name="idReserva" value="<?= htmlspecialchars($res['idReserva']) ?>">
                                                                         <input type="hidden" name="action" value="cancelar">
-                                                                        <button type="submit" class="btn btn-danger btn-sm" <?= $res['estado'] !== 'Pendiente' ? 'disabled' : '' ?>>Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger btn-sm" <?= $res['estado'] !== 'Pendiente' && $res['estado'] !== 'Aceptado' ? 'disabled' : '' ?>>Cancelar</button>
                                                                     </form>
                                                                 </td>
                                                             </tr>
