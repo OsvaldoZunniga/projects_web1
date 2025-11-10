@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); //mantener la sesion y variables activas del usuario logueado
 require_once '../database/connection.php';
 
 //logout
@@ -11,7 +11,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
 
 $conn = getConnection_BD();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { //verifica cómo se envió la información al servidor por medio de $_server
     $correo = trim($_POST['correo']);
     $contrasena = trim($_POST['contrasena']);
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         }
 
-        if (password_verify($contrasena, $user['contrasena'])) {
+        if (password_verify($contrasena, $user['contrasena'])) { //comparo la contrasena con el hash almacenado
             $_SESSION['idUsuario'] = $user['idUsuario'];
             $_SESSION['nombre'] = $user['nombre'];
             $_SESSION['correo'] = $user['correo'];

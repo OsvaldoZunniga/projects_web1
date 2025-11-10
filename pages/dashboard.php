@@ -1,7 +1,7 @@
 <?php
-session_start();
+session_start(); //renudamos al sesion existente
 
-if (!isset($_SESSION['idUsuario'])) {
+if (!isset($_SESSION['idUsuario'])) { //si no hay sesion activa redirigimos al login
     header("Location: ../index.php?msg=inactive");
     exit();
 }
@@ -37,10 +37,9 @@ $idRol = $_SESSION['idRoles'];
     <?php endif; ?>
 
 
-
 <div class="container mt-4 text-center">
     <?php
-        switch ($idRol) {
+        switch ($idRol) { //incluimos el dashboard segun el rol del usuario
             case 3:
                 include '../templates/dashB_Admin.php';
                 break;
