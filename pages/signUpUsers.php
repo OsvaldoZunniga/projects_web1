@@ -54,9 +54,8 @@ require_once '../database/connection.php';
 
             <div class="tab-content" id="registroTabsContent">
               <!--CHOFER -->
-              <div class="tab-pane fade show active" id="chofer" role="tabpanel">
+              <div class="tab-pane fade show active" id="chofer" role="tabpanel"> <!-- define el panel donde se mostrará el formulario del chofer cuando se seleccione la pestaña-->
                 <form action="../functions/users.php" method="POST" enctype="multipart/form-data">
-
                  <input type="hidden" name="idRoles" value="1">
 
                   <div class="row">
@@ -115,7 +114,7 @@ require_once '../database/connection.php';
               </div>
 
               <!--Pasajero -->
-              <div class="tab-pane fade" id="pasajero" role="tabpanel">
+              <div class="tab-pane fade" id="pasajero" role="tabpanel"> <!-- define el panel donde se mostrará el formulario del pasajero cuando se seleccione la pestaña-->
                 <form action="../functions/users.php" method="POST" enctype="multipart/form-data">
                   <input type="hidden" name="idRoles" value="2">
 

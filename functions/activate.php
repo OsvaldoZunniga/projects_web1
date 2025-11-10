@@ -3,7 +3,7 @@ require_once '../database/connection.php';
 
 $conn = getConnection_BD();
 
-if (isset($_GET['email']) && isset($_GET['token'])) {
+if (isset($_GET['email']) && isset($_GET['token'])) { //el enlace debe contener el email y el token 
     $email = trim($_GET['email']);
     $token = trim($_GET['token']);
 
@@ -13,7 +13,7 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result && $result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) { //activamos la cuenta cambiando el estado y dejamos el token null
         $sqlUpdate = "UPDATE usuarios SET estado='Activo', token=NULL WHERE correo=? AND token=?";
         $stmtUpdate = $conn->prepare($sqlUpdate);
         $stmtUpdate->bind_param("ss", $email, $token);
@@ -30,7 +30,7 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
 
     $stmt->close();
     } else {
-        echo "Datos inválidos."; //considerar tambien una aerlta
+        echo "Datos inválidos."; 
     }
 
 $conn->close();
