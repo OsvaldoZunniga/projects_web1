@@ -129,24 +129,24 @@ function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
             FROM ride r
             INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
             INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
-            WHERE r.fecha >= CURDATE() 
+            WHERE r.fecha >= CURDATE()  /*Solo selecciona los viajes que ocurren hoy o en el futuro*/
             AND u.estado = 'Activo'
             AND r.estado != 'Realizado'
             AND v.idVehiculo IS NOT NULL";
     
-    $params = [];
-    $types = "";
+    $params = []; //contiene los valores
+    $types = ""; //indica los tipos de datos para el bind param
     
-    // Filtros de búsqueda
+
     if (!empty($filtros['salida'])) {
-        $sql .= " AND r.salida LIKE ?";
+        $sql .= " AND r.salida LIKE ?"; /*Y la salida contiene ese texto? / el like busca coincidencias*/
         $params[] = "%" . $filtros['salida'] . "%";
         $types .= "s";
     }
     
     if (!empty($filtros['llegada'])) {
         $sql .= " AND r.llegada LIKE ?";
-        $params[] = "%" . $filtros['llegada'] . "%";
+        $params[] = "%" . $filtros['llegada'] . "%"; /*cualquier cosa que contenga la palabra*/
         $types .= "s";
     }
     
@@ -167,7 +167,7 @@ function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
         case 'llegada_desc':
             $sql .= " ORDER BY r.llegada DESC";
             break;
-        default: // fecha_asc
+        default: 
             $sql .= " ORDER BY r.fecha ASC, r.hora ASC";
             break;
     }
@@ -200,7 +200,7 @@ function verificarCorreoExiste($conn, $correo) {
     $stmt->bind_param("s", $correo);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->num_rows > 0;
+    return $result->num_rows > 0; //Si existe → num_rows = 1 Si no existe → num_rows = 0
 }
 
 // Inserta una nueva reserva en la base de datos - Usada en: reservas.php
