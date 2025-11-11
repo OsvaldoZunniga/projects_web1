@@ -122,7 +122,7 @@ if (!$vehiculo || $vehiculo['idUsuario'] != $_SESSION['idUsuario']) {
 <script>
 function confirmarEliminar() {
   if (confirm('¿Estás seguro de que quieres eliminar este vehículo? Esta acción no se puede deshacer.')) {
-    document.getElementById('formEliminar').submit();
+    document.getElementById('formEliminar').submit(); //busca el elemento con id formEliminar y lo envia
   }
 }
 </script>

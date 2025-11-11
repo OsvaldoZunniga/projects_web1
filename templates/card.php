@@ -1,5 +1,5 @@
 <div class="col-md-3">
-  <a href="../pages/vehicles_settings.php?id=<?= $vehiculo['idVehiculo'] ?>" class="text-decoration-none">
+  <a href="../pages/vehicles_settings.php?id=<?= $vehiculo['idVehiculo'] ?>" class="text-decoration-none"> <!-- Enlace a laconfiguración del vehículo -->
     <div class="card shadow border-0 h-100 card-clickable" 
          style="border-radius: 0.8rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1) !important; transition: transform 0.2s, box-shadow 0.2s;">
       

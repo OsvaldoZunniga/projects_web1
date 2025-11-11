@@ -103,13 +103,15 @@ $usuarios = obtenerUsuariosActivos($conn);
         </div>
       </div>
       
+      <!-- generamos una tabla dinamica para visualizar los usuarios activos y desactivar si es necesario -->
       <div class="col-12 col-md-11 col-lg-10 col-xl-9 mt-4">
         <div class="card fondo text-white p-4" style="border-radius: 20px; box-shadow: 0 4px 24px rgba(39, 174, 96, 0.12);">
           <h3 class="fw-bold mb-4 text-center" style="color: #eaf7d2;">Usuarios Activos</h3>
+
           <div class="table-responsive">
             <table class="table table-striped table-hover">
               <thead style="background-color: #2ECC71; color: #fffde8;">
-                <tr>
+                <tr>                <!--creamos los encabezados de la tabla -->
                   <th>Nombre</th>
                   <th>Apellido</th>
                   <th>Cédula</th>
@@ -119,9 +121,9 @@ $usuarios = obtenerUsuariosActivos($conn);
                 </tr>
               </thead>
               <tbody style="background-color: #fffde8; color: #13281F;">
-                <?php foreach($usuarios as $user): ?>
+                <?php foreach($usuarios as $user): ?>  <!--por cada foreach se crea una nueva fila tr con la info del usuario-->
                 <tr>
-                <td><?= htmlspecialchars($user['nombre']) ?></td>
+                <td><?= htmlspecialchars($user['nombre']) ?></td> 
                 <td><?= htmlspecialchars($user['apellido']) ?></td>
                 <td><?= htmlspecialchars($user['cedula']) ?></td>
                 <td><?= htmlspecialchars($user['correo']) ?></td>

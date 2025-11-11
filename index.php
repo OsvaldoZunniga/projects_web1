@@ -15,6 +15,7 @@ require_once 'database/connection.php';
 
 </head>
 <body>
+    <!-- alertas que muestra diferentes mensajes segun lo que se reciba en la URL con el $_GET -->
     <?php if (isset($_GET['msg'])): ?>
         <div class="container mt-3">
             <?php if ($_GET['msg'] == 'pending'): ?>

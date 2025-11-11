@@ -36,24 +36,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    $contrasena_hashed = password_hash($contrasena, PASSWORD_DEFAULT);
+    $contrasena_hashed = password_hash($contrasena, PASSWORD_DEFAULT); //convierte en una version encriptada usando la funcion password_hash y el algorimo password_default
 
-    $foto_ruta = '';
+    $foto_ruta = ''; // ruta de la foto
     if (!empty($_FILES['fotografia']['name'])) {
         $carpeta = '../assets/';
-        if (!is_dir($carpeta)) mkdir($carpeta, 0755, true);
+        if (!is_dir($carpeta)) mkdir($carpeta, 0755, true); // si la carpeta no existe se crea con mkdir 
 
-        $nuevoNombre = time() . '_' . basename($_FILES['fotografia']['name']);
-        $destino = $carpeta . $nuevoNombre;
+        $nuevoNombre = time() . '_' . basename($_FILES['fotografia']['name']); //imagen con nombres unicos 
+        $destino = $carpeta . $nuevoNombre; //crea la ruta completa, como asi:  "../assets/1730999010_foto.jpg";
 
-        if (move_uploaded_file($_FILES['fotografia']['tmp_name'], $destino)) {
+        if (move_uploaded_file($_FILES['fotografia']['tmp_name'], $destino)) { //mueve el archivo subido a la ruta destino
             $foto_ruta = 'assets/' . $nuevoNombre; 
         } else {
             echo "No se pudo subir la imagen.";
         }
     }
 
-    $token = bin2hex(random_bytes(16));
+    $token = bin2hex(random_bytes(16)); //generar un token unico para activacion 
 
     $sql = "INSERT INTO usuarios 
         (nombre, apellido, cedula, nacimiento, correo, telefono, fotografia, contrasena, idRoles, token) 
@@ -64,21 +64,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //correos
     if ($stmt->execute()) {
-        $mail = new PHPMailer(true);
+        $mail = new PHPMailer(true); //objeto de la clase PHPMailer
         try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'aventomescr@gmail.com';
+            $mail->isSMTP(); //enviar el correo a través de un servidor SMTP externo
+            $mail->Host = 'smtp.gmail.com'; //servidor de Gmail
+            $mail->SMTPAuth = true;        //requirea autenticacion
+            $mail->Username = 'aventomescr@gmail.com'; 
             $mail->Password = 'ubon jmov ryip sxmk'; 
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+            $mail->SMTPSecure = 'tls'; //seguridad de envio del correo 
+            $mail->Port = 587; 
 
-            $mail->setFrom('aventomescr@gmail.com', 'AventonesCR');
-            $mail->addAddress($correo, $nombre);
+            $mail->setFrom('aventomescr@gmail.com', 'AventonesCR'); //remitente
+            $mail->addAddress($correo, $nombre);  //los datos del usurio destinatario
 
-            $mail->isHTML(true);
-            $mail->Subject = 'Activar cuenta';
+            $mail->isHTML(true); //formato HTML para que no sea texto plano 
+            $mail->Subject = 'Activar cuenta'; //asuento del correo
             
             $activationLink = "http://proyecto01.com/functions/activate.php?email=$correo&token=$token";
             $mail->Body = "Hola $nombre,<br><br>Para activar tu cuenta, haz clic en el siguiente enlace:<br>
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
 }
 
-
+//para devolver el icono de perfil del usuario
 function getProfileIcon($email) {
     $conn = getConnection_BD();
     $sql = "SELECT fotografia FROM usuarios WHERE correo = '$email' LIMIT 1";
@@ -108,10 +108,7 @@ function getProfileIcon($email) {
     if ($result) $result->free();
     $conn->close();
     
-
     return $user ? $user['fotografia'] : '/assets/default-profile.png';
 }
-
-
 
 ?>
