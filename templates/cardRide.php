@@ -1,11 +1,11 @@
 <?php
-$role = isset($_SESSION['idRoles']) ? $_SESSION['idRoles'] : 0;
-$esPublica = isset($isPublicPage) && $isPublicPage;
-$esChoferEnDashboard = !$esPublica && $role == 1;
+$role = isset($_SESSION['idRoles']) ? $_SESSION['idRoles'] : 0; //si no existe la variable de sesión, asigna 0
+$esPublica = isset($isPublicPage) && $isPublicPage; //variable definida en public_rides.php paara indicar si es página pública
+$esChoferEnDashboard = !$esPublica && $role == 1; //no es pública Y el usuario es chofer
 ?>
 
 <div class="col-md-4 mb-4">
-  <?php if ($esChoferEnDashboard): ?>
+  <?php if ($esChoferEnDashboard): ?> 
     <a href="rides_settings.php?id=<?= htmlspecialchars($ride['idRide']) ?>" class="text-decoration-none">
   <?php endif; ?>
 
