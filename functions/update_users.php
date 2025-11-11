@@ -47,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt_foto = $conn->prepare($sql_foto);
             $stmt_foto->bind_param("i", $userId);
             $stmt_foto->execute();
-            $stmt_foto->bind_result($old_foto);
-            $stmt_foto->fetch();
+            $stmt_foto->bind_result($old_foto); //vinculamos a old_foto con el resulado de la consulta.
+            $stmt_foto->fetch(); //asignamos el valor a la variable old_foto
             $stmt_foto->close();
-            if ($old_foto && file_exists("../" . $old_foto)) {
-                unlink("../" . $old_foto);
+            if ($old_foto && file_exists("../" . $old_foto)) { //verificamos que el archivo exista antes de eliminarlo
+                unlink("../" . $old_foto); //borramos el archivo antiguo con unlink
             }
         }
         
