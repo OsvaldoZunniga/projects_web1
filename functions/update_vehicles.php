@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (move_uploaded_file($_FILES['foto']['tmp_name'], $destino)) {
                 if (!empty($vehiculo['foto']) && file_exists('../' . $vehiculo['foto'])) {
-                    unlink('../' . $vehiculo['foto']);
+                    unlink('../' . $vehiculo['foto']); // elimina la foto anterior
                 }
                 $foto_ruta = 'assets/' . $nuevoNombre;
             }

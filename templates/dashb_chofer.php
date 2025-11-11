@@ -29,7 +29,7 @@ $reservas = obtenerReservasPendientes($conn);
 <?php include '../templates/nav.php'; ?>
   <div class="container-fluid py-5 h-100" style="padding-top: 40px; padding-bottom: 40px;">
     <div class="row g-4">
-
+    
       <div class="col-md-6">
         <div class="card fondo text-white shadow border-0 h-100 text-center">
           <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
@@ -44,7 +44,7 @@ $reservas = obtenerReservasPendientes($conn);
         <div class="card fondo text-white shadow border-0 h-100 text-center">
           <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
             <h3 class="fw-bold mb-4" style="color: #eaf7d2;">Gestión de Rides</h3>
-            <p class="mb-4" style="color: #d6e5c0;">Crea, actualiza o consulta tus viajes disponibles.</p>
+            <p class="mb-4" style="color: #d6e5c0;">Crea tus rides aquí.</p>
             <a href="../pages/addRide.php" class="btn btn-outline-light btn-lg px-4" style="width:auto;min-width:200px;">Ir a Rides</a>
           </div>
         </div>
@@ -61,9 +61,9 @@ $reservas = obtenerReservasPendientes($conn);
               <?php if (empty($vehiculos)): ?> 
                 <p class="text-center" style="color: #d6e5c0;">No hay vehículos registrados aún.</p>
               <?php else: ?>
-                <?php foreach($vehiculos as $vehiculo): ?>
+                <?php foreach($vehiculos as $vehiculo): ?>  <!--por cada foreach se crea una nueva tarjeta con la info del vehiculo-->
                   <?php
-                    include 'card.php'; 
+                    include 'card.php';
                   ?>
                 <?php endforeach; ?>
               <?php endif; ?>
@@ -83,7 +83,7 @@ $reservas = obtenerReservasPendientes($conn);
                 if (empty($rides)): ?>
                   <p class="text-center" style="color: #d6e5c0;">No hay rides registrados aún.</p>
                 <?php else: ?>
-                  <?php foreach ($rides as $ride):
+                  <?php foreach ($rides as $ride): 
                     $item = [
                       'idRide' => $ride['idRide'],
                       'nombre' => $ride['nombre'],
