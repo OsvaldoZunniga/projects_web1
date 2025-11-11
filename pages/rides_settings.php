@@ -74,7 +74,7 @@ $idUsuario = $_SESSION['idUsuario'];
                       foreach ($vehiculos as $veh) {
                         $selected = ($veh['idVehiculo'] == $ride['idVehiculo']) ? 'selected' : '';
                         echo "<option value='" . $veh['idVehiculo'] . "' $selected>" . $veh['marca'] . " " . $veh['modelo'] . " - " . $veh['color'] . "</option>";
-                      }
+                      } //selected para que cargue el vehiculo seleccionado
                     ?>
                   </select>
                 </div>
