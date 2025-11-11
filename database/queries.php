@@ -131,7 +131,10 @@ function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
             INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
             INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
             WHERE u.estado = 'Activo'
+            AND r.estado != 'Realizado'
             AND v.idVehiculo IS NOT NULL";
+
+            
     
     $params = []; //contiene los valores
     $types = ""; //indica los tipos de datos para el bind param
