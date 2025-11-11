@@ -13,6 +13,7 @@ $idUsuario = $_SESSION['idUsuario'];
 $vehiculos = obtenerVehiculosPorUsuario($conn, $idUsuario);
 $rides = obtenerRidesPorUsuario($conn, $idUsuario);
 $reservas = obtenerReservasPendientes($conn);
+$ridesRealizados = obtenerRidesRealizadosPorChofer($conn, $idUsuario);
 ?>
 
 <!DOCTYPE html>
@@ -136,6 +137,44 @@ $reservas = obtenerReservasPendientes($conn);
         </div>
       </div>
     </div>
+
+    <!--Rides Realizados-->
+
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card fondo text-white shadow border-0" style="border-radius: 20px; min-height: 400px; box-shadow: 0 4px 24px rgba(39, 174, 96, 0.12);">
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-4" style="color: #eaf7d2;">Rides Realizados</h3>
+            <div class="row g-4" id="rides-container">
+              <?php
+                if (empty($ridesRealizados)): ?>
+                  <p class="text-center" style="color: #d6e5c0;">Aún no se ha realizado ningún ride</p>
+                <?php else: ?>
+                  <?php foreach ($ridesRealizados as $rideRealizado):
+                    $rideRealizado = [
+                      'idRide' => $rideRealizado['idRide'],
+                      'nombre' => $rideRealizado['nombre'],
+                      'marca' => $rideRealizado['marca'],
+                      'modelo' => $rideRealizado['modelo'],
+                      'color' => $rideRealizado['color'],
+                      'salida' => $rideRealizado['salida'],
+                      'llegada' => $rideRealizado['llegada'],
+                      'fecha' => $rideRealizado['fecha'],
+                      'hora' => $rideRealizado['hora'],
+                      'espacios' => $rideRealizado['espacios'],
+                      'costo_espacio' => $rideRealizado['costo_espacio']
+                    ];
+                    include 'cardRidesRealizados.php';
+                  endforeach; ?>
+                <?php endif; ?>            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    
 
   </div> 
 

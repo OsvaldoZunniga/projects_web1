@@ -100,6 +100,7 @@ function obtenerRidesPorUsuario($conn, $idUsuario) {
             INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
             WHERE u.idUsuario = ?
             AND u.estado = 'Activo'
+            AND r.estado != 'Realizado'
             AND v.idVehiculo IS NOT NULL
             ORDER BY r.idRide DESC";
     
@@ -267,6 +268,67 @@ function obtenerReservasPendientes($conn) {
             ORDER BY res.idReserva DESC";
     
     $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+function obtenerRidesRealizadosPorChofer($conn, $idUsuario) {
+    $sql = "SELECT 
+                r.idRide, 
+                r.idVehiculo, 
+                r.nombre, 
+                r.salida, 
+                r.llegada, 
+                r.hora, 
+                r.fecha, 
+                r.espacios, 
+                r.costo_espacio,
+                r.estado,
+                v.marca,
+                v.modelo,
+                v.color
+            FROM ride r
+            INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
+            WHERE u.idUsuario = ?
+            AND u.estado = 'Activo'
+            AND r.estado = 'Realizado'
+            AND v.idVehiculo IS NOT NULL
+            ORDER BY r.idRide DESC";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+function obtenerRidesRealizadosPorUsuario($conn, $idUsuario) {
+    $sql = "SELECT 
+                r.idRide,
+                r.nombre,
+                r.idVehiculo,
+                r.salida,
+                r.llegada,
+                r.hora,
+                r.fecha,
+                r.espacios,
+                r.costo_espacio,
+                r.estado,
+                v.marca,
+                v.modelo,
+                v.color
+            FROM reserva res
+            INNER JOIN ride r ON res.idRide = r.idRide
+            INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
+            INNER JOIN usuarios u ON res.idUsuario = u.idUsuario
+            WHERE res.idUsuario = ?
+            AND r.estado = 'Realizado'
+            AND u.estado = 'Activo'
+            AND v.idVehiculo IS NOT NULL
+            ORDER BY r.fecha DESC, r.hora DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idUsuario);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
