@@ -4,7 +4,7 @@ require '../functions/users.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$email = $_SESSION['correo'] ?? '';
+$email = $_SESSION['correo'] ?? ''; //esto es para ubicar por medio del correo la foto de perfil del usuario y mostrarla
 ?>
 <nav class="navbar navbar-expand-lg" style="background-color:  #13281F; color:#f1f6e9">
   <div class="container-fluid px-4">

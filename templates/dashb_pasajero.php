@@ -11,7 +11,8 @@ require_once '../database/queries.php';
 $conn = getConnection_BD();
 $idUsuario = $_SESSION['idUsuario'];
 
-$filtros = [
+//se caprutan los filtros y orden desde la URL
+$filtros = [ 
     'salida' => $_GET['salida'] ?? '',
     'llegada' => $_GET['llegada'] ?? ''
 ];
@@ -48,7 +49,7 @@ $reservas = obtenerReservasPorUsuario($conn, $idUsuario);
                             <div class="col-md-4">
                                 <label class="form-label fw-bold" style="color: #1A281E;">
                                     Lugar de Salida
-                                </label>
+                                </label> <!-- asignamos el valor que el usuario ingreso a filtros[] -->
                                 <input type="text" class="form-control" name="salida" 
                                        value="<?= htmlspecialchars($filtros['salida']) ?>" 
                                        placeholder="Ej: San José, Cartago...">
@@ -132,8 +133,8 @@ $reservas = obtenerReservasPorUsuario($conn, $idUsuario);
                 </div>
             </div>
         <?php else: ?>
-            <?php foreach ($ridesDisponibles as $ride): ?>
-                <?php include '../templates/cardRide.php'; ?>
+            <?php foreach ($ridesDisponibles as $ride): ?> 
+                <?php include '../templates/cardRide.php'; ?> 
             <?php endforeach; ?>
         <?php endif; ?>
     </div>

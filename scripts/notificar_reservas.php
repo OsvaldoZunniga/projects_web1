@@ -1,17 +1,21 @@
 <?php
- //Ejemplo: php scripts/notificar_reservas.php 1440 para revisar de mas de un dia
+ // php scripts/notificar_reservas.php 1440 para revisar de mas de un dia
 
 require_once __DIR__ . '/../database/connection.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
-
+//el número de minutos desde la línea de comandos o usar 30 por defecto
 $minutos = $argv[1] ?? 30;
 echo "Buscando reservas pendientes de más de {$minutos} minutos...\n";
 
 $conn = getConnection_BD();
+
+//Minutos_transcurridos es cuántos minutos han pasado desde que se hizo la reserva hasta ahora- obtiene información del ride asociado a la reserva
+//Obtien e también información del chofer y pasajero
+
 $sql = "SELECT r.idReserva, r.fecha,
-               TIMESTAMPDIFF(MINUTE, r.fecha, NOW()) as minutos_transcurridos,
+               TIMESTAMPDIFF(MINUTE, r.fecha, NOW()) as minutos_transcurridos, 
                ride.nombre as ride_nombre, ride.salida, ride.llegada, 
                ride.fecha as fecha_viaje, ride.hora,
                pasajero.nombre as pasajero_nombre,
@@ -36,19 +40,19 @@ if (empty($reservas)) {
 
 echo "Encontradas " . count($reservas) . " reservas pendientes.\n";
 
-$choferes = [];
+$choferes = []; // agrupa reservas por chofer
 foreach ($reservas as $reserva) {
-    $correo = $reserva['chofer_correo'];
-    $choferes[$correo]['nombre'] = $reserva['chofer_nombre'];
-    $choferes[$correo]['reservas'][] = $reserva;
+    $correo = $reserva['chofer_correo']; // agrupa por correo del chofer
+    $choferes[$correo]['nombre'] = $reserva['chofer_nombre']; 
+    $choferes[$correo]['reservas'][] = $reserva; //sub array de reservas de ese chofer
 }
 
 $enviados = 0;
-foreach ($choferes as $correo => $datos) {
-    echo "Enviando correo a: {$datos['nombre']} ({$correo})... ";
+foreach ($choferes as $correo => $datos) { //correo es clave y datos es el valor (nombre y reservas)
+    echo "Enviando correo a: {$datos['nombre']} ({$correo})... "; 
     
-    $lista = "";
-    foreach ($datos['reservas'] as $r) {
+    $lista = ""; // lista de reservas
+    foreach ($datos['reservas'] as $r) { // recorremos las reservas de ese chofer
         $lista .= "- Reserva #{$r['idReserva']}: {$r['ride_nombre']}<br>";
         $lista .= "  Pasajero: {$r['pasajero_nombre']}<br>";
         $lista .= "  Ruta: {$r['salida']} → {$r['llegada']}<br>";
@@ -65,7 +69,7 @@ foreach ($choferes as $correo => $datos) {
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('aventomescr@gmail.com', 'RideConnect');
+        $mail->setFrom('aventomescr@gmail.com', 'AventonesCR');
         $mail->addAddress($correo, $datos['nombre']);
         $mail->isHTML(true);
         $mail->Subject = 'Solicitudes de reserva pendientes';
@@ -74,7 +78,7 @@ foreach ($choferes as $correo => $datos) {
                        Tienes " . count($datos['reservas']) . " solicitud(es) pendiente(s):<br><br>
                        {$lista}
                        Revisa tu panel para aceptar o rechazar.<br><br>
-                       Saludos,<br>RideConnect";
+                       Saludos,<br>AventonesCR";
 
         $mail->send();
         echo "Enviado\n";
