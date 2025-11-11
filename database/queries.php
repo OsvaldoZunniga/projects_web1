@@ -130,9 +130,7 @@ function obtenerRidesPublicos($conn, $filtros = [], $orden = 'fecha_asc') {
             FROM ride r
             INNER JOIN vehiculos v ON r.idVehiculo = v.idVehiculo
             INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
-            WHERE r.fecha >= CURDATE()  /*Solo selecciona los viajes que ocurren hoy o en el futuro*/
-            AND u.estado = 'Activo'
-            AND r.estado != 'Realizado'
+            WHERE u.estado = 'Activo'
             AND v.idVehiculo IS NOT NULL";
     
     $params = []; //contiene los valores
