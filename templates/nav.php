@@ -10,7 +10,7 @@ $email = $_SESSION['correo'] ?? ''; //esto es para ubicar por medio del correo l
   <div class="container-fluid px-4">
     <a class="navbar-brand d-flex align-items-center text-decoration-none" href="#" style="color: #f1f6e9;">
       <img src="../assets/logo.jpg" alt="Logo" height="35" class="me-2 rounded-circle">
-      <span class="fw-bold">RideConnect</span>
+      <span class="fw-bold">Aventones</span>
     </a>
 
     <div class="profile d-flex align-items-center">
