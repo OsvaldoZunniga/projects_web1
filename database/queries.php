@@ -272,6 +272,7 @@ function obtenerReservasPendientes($conn) {
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
 function obtenerRidesRealizadosPorChofer($conn, $idUsuario) {
     $sql = "SELECT 
                 r.idRide, 
@@ -302,6 +303,7 @@ function obtenerRidesRealizadosPorChofer($conn, $idUsuario) {
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
 function obtenerRidesRealizadosPorUsuario($conn, $idUsuario) {
     $sql = "SELECT 
                 r.idRide,
